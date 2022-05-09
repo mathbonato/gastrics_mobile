@@ -5,7 +5,6 @@ import 'package:glp_manager_mobile/modules/singup/singup_page.dart';
 import 'package:glp_manager_mobile/shared/themes/app_images.dart';
 import 'package:glp_manager_mobile/shared/themes/app_text_styles.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
-import 'package:glp_manager_mobile/shared/widgets/social_login/social_login_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
