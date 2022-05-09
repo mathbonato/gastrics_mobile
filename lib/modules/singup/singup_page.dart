@@ -4,14 +4,14 @@ import 'package:glp_manager_mobile/shared/themes/app_text_styles.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 import 'package:glp_manager_mobile/shared/widgets/social_login/social_login_button.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SingUpPage extends StatefulWidget {
+  const SingUpPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SingUpPage> createState() => _SingUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SingUpPageState extends State<SingUpPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
         width: size.width,
         height: size.height,
         color: AppColors.body,
-        child: Center(child: Text("Login Page")),
+        child: Center(child: Text("SingUp Page")),
       )
     );
   }
