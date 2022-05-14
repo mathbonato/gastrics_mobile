@@ -11,14 +11,14 @@ import '../../components/rounded_button.dart';
 import '../../components/rounded_input_field.dart';
 import '../../components/rounded_password_field.dart';
 
-class SingUpPage extends StatefulWidget {
-  const SingUpPage({Key? key}) : super(key: key);
+class BranchList extends StatefulWidget {
+  const BranchList({Key? key}) : super(key: key);
 
   @override
-  State<SingUpPage> createState() => _SingUpPageState();
+  State<BranchList> createState() => _BranchListState();
 }
 
-class _SingUpPageState extends State<SingUpPage> {
+class _BranchListState extends State<BranchList> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -37,29 +37,8 @@ class _SingUpPageState extends State<SingUpPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "LOGIN",
+                    "DEU CERTO",
                     style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  // SvgPicture.asset(
-                  //   "assets/icons/login.svg",
-                  //   height: size.height * 0.35,
-                  // ),
-                  SizedBox(height: size.height * 0.03),
-                  RoundedInputField(
-                    hintText: "Your Email",
-                    onChanged: (value) {},
-                  ),
-                  RoundedPasswordField(
-                    onChanged: (value) {},
-                  ),
-                  RoundedButton(
-                    text: "LOGIN",
-                    press: () {},
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  AlreadyHaveAnAccountCheck(
-                    press: () {},
                   ),
                 ],
               ),
