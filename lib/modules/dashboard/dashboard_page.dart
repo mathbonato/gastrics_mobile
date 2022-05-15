@@ -55,21 +55,35 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
               SizedBox(height: size.height * 0.03),
-              const Center(
-                child: Card(
+              Card(
                   elevation: 0,
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                     side: BorderSide(
                       color: AppColors.grey,
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                   ),
-                  child: SizedBox(
-                    height: 250,
-                    child: Center(child: Text('Outlined Card')),
-                  ),
-                ),
-              )
+                  child: Container(
+                      height: 200,
+                      alignment: Alignment.topCenter,
+                      margin: const EdgeInsets.all(5),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                            child: Row(
+                              children: const [
+                                CircularProgressIndicator(
+                                  backgroundColor: Colors.grey,
+                                  color: Colors.green,
+                                  strokeWidth: 10,
+                                  value: 0.65,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ))),
             ],
           ),
         )),
