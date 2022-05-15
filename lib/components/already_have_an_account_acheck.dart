@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:glp_manager_mobile/modules/singup/singup_page.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {
@@ -18,7 +20,7 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
           style: TextStyle(color: AppColors.primary),
         ),
         GestureDetector(
-          onTap: () => {},
+          onTap: () => Get.to(SingUpPage()),
           child: const Text(
             "Cadastre-se.",
             style: TextStyle(

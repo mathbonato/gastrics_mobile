@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:glp_manager_mobile/modules/dashboard/home_page.dart';
 import 'package:glp_manager_mobile/shared/themes/app_images.dart';
 import 'package:glp_manager_mobile/shared/themes/app_text_styles.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
@@ -62,7 +64,7 @@ class _SingUpPageState extends State<SingUpPage> {
                   ),
                   RoundedButton(
                     text: "Cadastrar",
-                    press: () {},
+                    press: () => Get.to(DashboardPage()),
                   ),
                   SizedBox(height: size.height * 0.03),
                 ],
