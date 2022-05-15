@@ -36,7 +36,7 @@ class _SingUpPageState extends State<SingUpPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                                 Text(
-                                    "LOGIN",
+                                    "Create account",
                                     style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: size.height * 0.03),
@@ -46,20 +46,27 @@ class _SingUpPageState extends State<SingUpPage> {
                                 // ),
                                 SizedBox(height: size.height * 0.03),
                                 RoundedInputField(
-                                    hintText: "Your Email",
+                                    hintText: "Company Name",
+                                    icon: Icons.business,
+                                    onChanged: (value) {},
+                                ),RoundedInputField(
+                                    hintText: "E-mail",
+                                    icon: Icons.mail,
+                                    onChanged: (value) {},
+                                ),
+                                 RoundedInputField(
+                                    hintText: "CNPJ",
+                                    icon: Icons.person,
                                     onChanged: (value) {},
                                 ),
                                 RoundedPasswordField(
                                     onChanged: (value) {},
                                 ),
                                 RoundedButton(
-                                    text: "LOGIN",
+                                    text: "Create account",
                                     press: () {},
                                 ),
                                 SizedBox(height: size.height * 0.03),
-                                AlreadyHaveAnAccountCheck(
-                                    press: () {},
-                                ),
                             ],
                         ),
                     ),
