@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:glp_manager_mobile/modules/home/home_page.dart';
 import 'package:glp_manager_mobile/shared/themes/app_images.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
@@ -30,7 +31,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
         ListTile(
           title: const Text('Perfil'),
           leading: const Icon(Icons.person),
-          onLongPress: () {},
+          onTap: () {},
         ),
         const Divider(),
         const ListTile(
@@ -41,19 +42,19 @@ class _CustomDrawerState extends State<CustomDrawer> {
         ListTile(
           title: const Text('Configurações'),
           leading: const Icon(Icons.settings),
-          onLongPress: () {},
+          onTap: () {},
         ),
         const Divider(),
         ListTile(
           title: const Text('Suporte'),
           leading: const Icon(Icons.report_problem),
-          onLongPress: () {},
+          onTap: () {},
         ),
         const Divider(),
         ListTile(
           title: const Text('Sair'),
           leading: const Icon(Icons.logout),
-          onLongPress: () {},
+          onTap: () => Get.to(HomePage()),
         ),
         ListTile(
             title: const Text('Fechar'),

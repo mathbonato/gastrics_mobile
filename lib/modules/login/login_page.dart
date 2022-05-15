@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: size.height * 0.03),
                   SizedBox(height: size.height * 0.03),
                   RoundedInputField(
-                    hintText: "Your Email",
+                    hintText: "Email",
                     onChanged: (value) {},
                   ),
                   RoundedPasswordField(

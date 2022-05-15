@@ -41,7 +41,7 @@ class _SingUpPageState extends State<SingUpPage> {
                   SizedBox(height: size.height * 0.03),
                   SizedBox(height: size.height * 0.03),
                   RoundedInputField(
-                    hintText: "Company Name",
+                    hintText: "Nome da empresa",
                     icon: Icons.business,
                     onChanged: (value) {},
                   ),
