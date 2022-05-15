@@ -3,12 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glp_manager_mobile/modules/dashboard/home_page.dart';
-import 'package:glp_manager_mobile/shared/themes/app_images.dart';
-import 'package:glp_manager_mobile/shared/themes/app_text_styles.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
-import 'package:glp_manager_mobile/shared/widgets/social_login/social_login_button.dart';
 
-import '../../components/already_have_an_account_acheck.dart';
 import '../../components/rounded_button.dart';
 import '../../components/rounded_input_field.dart';
 import '../../components/rounded_password_field.dart';
