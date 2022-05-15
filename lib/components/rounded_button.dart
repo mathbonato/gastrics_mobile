@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glp_manager_mobile/constants.dart';
+import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
 class RoundedButton extends StatelessWidget {
   final String text;
@@ -9,7 +10,7 @@ class RoundedButton extends StatelessWidget {
     Key? key,
     required this.text,
     required this.press,
-    this.color = kPrimaryColor,
+    this.color = Colors.red,
     this.textColor = Colors.white,
   }) : super(key: key);
 
@@ -21,26 +22,19 @@ class RoundedButton extends StatelessWidget {
       width: size.width * 0.8,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(29),
-        child: newElevatedButton(),
+        child: ElevatedButton(
+          child: Text(
+            text,
+            style: TextStyle(color: textColor),
+          ),
+          onPressed: () => press(),
+          style: ButtonStyle(
+              // padding:  EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+              minimumSize: MaterialStateProperty.all(const Size(400, 50)),
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(AppColors.primary)),
+        ),
       ),
-    );
-  }
-
-  //Used:ElevatedButton as FlatButton is deprecated.
-  //Here we have to apply customizations to Button by inheriting the styleFrom
-
-  Widget newElevatedButton() {
-    return ElevatedButton(
-      child: Text(
-        text,
-        style: TextStyle(color: textColor),
-      ),
-      onPressed: press(),
-      style: ElevatedButton.styleFrom(
-          primary: color,
-          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-          textStyle: TextStyle(
-              color: textColor, fontSize: 14, fontWeight: FontWeight.w500)),
     );
   }
 }

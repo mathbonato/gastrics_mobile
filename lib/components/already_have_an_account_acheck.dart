@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:glp_manager_mobile/constants.dart';
+import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {
-  final bool login;
   final Function press;
   const AlreadyHaveAnAccountCheck({
     Key? key,
-    this.login = true,
     required this.press,
   }) : super(key: key);
 
@@ -14,17 +12,17 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          login ? "Don’t have an Account ? " : "Already have an Account ? ",
-          style: TextStyle(color: kPrimaryColor),
+      children: [
+        const Text(
+          "Ainda não tem uma conta? ",
+          style: TextStyle(color: AppColors.primary),
         ),
         GestureDetector(
           onTap: () => {},
-          child: Text(
-            login ? "Sign Up" : "Sign In",
+          child: const Text(
+            "Cadastre-se.",
             style: TextStyle(
-              color: kPrimaryColor,
+              color: AppColors.primary,
               fontWeight: FontWeight.bold,
             ),
           ),
