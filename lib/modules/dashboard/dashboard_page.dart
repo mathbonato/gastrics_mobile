@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:glp_manager_mobile/modules/dashboard/drawer.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -14,8 +16,14 @@ class _DashboardPageState extends State<DashboardPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: AppBar(
+          backgroundColor: AppColors.primary, title: Text("GLP Manager")),
+      drawer: CustomDrawer(),
       body: Container(
-          width: size.width, height: size.height, child: Text("Dashboard")),
+        width: double.infinity,
+        height: size.height,
+        child: SingleChildScrollView(child: Container()),
+      ),
     );
   }
 }

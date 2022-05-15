@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:glp_manager_mobile/modules/dashboard/home_page.dart';
+import 'package:glp_manager_mobile/modules/dashboard/dashboard_page.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
 import '../../components/already_have_an_account_acheck.dart';
