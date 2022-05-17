@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
       if (username.compareTo('admin') == 0 &&
           password.compareTo('admin') == 0) {
         print("Deu boa");
-        Get.to(BranchList);
+        Get.to(BranchList());
       } else {
         showDialog(
             context: context,

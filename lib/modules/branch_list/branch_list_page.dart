@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:glp_manager_mobile/mock/BranchGenerator.dart';
+import 'package:glp_manager_mobile/models/Branch.dart';
 import 'package:glp_manager_mobile/shared/themes/app_images.dart';
 import 'package:glp_manager_mobile/shared/themes/app_text_styles.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
@@ -19,33 +21,45 @@ class BranchList extends StatefulWidget {
 }
 
 class _BranchListState extends State<BranchList> {
+  final List<Branch> branches = BranchGenerator().getBranches();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-          backgroundColor: AppColors.primary, title: Text("GLP Manager")),
-      body: Container(
-        width: double.infinity,
-        height: size.height,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "DEU CERTO",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+            backgroundColor: AppColors.primary, title: Text("GLP Manager")),
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 50,
+                child: Center(
+                    child: Text(
+                  "Filiais",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+              Expanded(
+                  child: Container(
+                child: ListView.separated(
+                  padding: EdgeInsets.all(20),
+                  itemCount: branches.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      height: 50,
+                      child: Row(
+                        children: <Widget>[Text(branches[index].name)],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const Divider(),
+                ),
+              ))
+            ],
+          ),
+        ));
   }
 }

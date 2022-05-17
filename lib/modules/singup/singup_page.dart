@@ -36,30 +36,45 @@ class _SingUpPageState extends State<SingUpPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "LOGIN",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  // SvgPicture.asset(
-                  //   "assets/icons/login.svg",
-                  //   height: size.height * 0.35,
-                  // ),
-                  SizedBox(height: size.height * 0.03),
-                  RoundedInputField(
-                    hintText: "Your Email",
-                    onChanged: (value) {},
-                  ),
-                  RoundedPasswordField(
-                    onChanged: (value) {},
-                  ),
-                  RoundedButton(
-                    text: "LOGIN",
-                    press: () {},
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  AlreadyHaveAnAccountCheck(
-                    press: () {},
+                  SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Create account",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: size.height * 0.03),
+                        // SvgPicture.asset(
+                        //   "assets/icons/login.svg",
+                        //   height: size.height * 0.35,
+                        // ),
+                        SizedBox(height: size.height * 0.03),
+                        RoundedInputField(
+                          hintText: "Company Name",
+                          icon: Icons.business,
+                          onChanged: (value) {},
+                        ),
+                        RoundedInputField(
+                          hintText: "E-mail",
+                          icon: Icons.mail,
+                          onChanged: (value) {},
+                        ),
+                        RoundedInputField(
+                          hintText: "CNPJ",
+                          icon: Icons.person,
+                          onChanged: (value) {},
+                        ),
+                        RoundedPasswordField(
+                          onChanged: (value) {},
+                        ),
+                        RoundedButton(
+                          text: "Create account",
+                          press: () {},
+                        ),
+                        SizedBox(height: size.height * 0.03),
+                      ],
+                    ),
                   ),
                 ],
               ),
