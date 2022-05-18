@@ -3,15 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:glp_manager_mobile/mock/BranchGenerator.dart';
 import 'package:glp_manager_mobile/models/Branch.dart';
-import 'package:glp_manager_mobile/shared/themes/app_images.dart';
-import 'package:glp_manager_mobile/shared/themes/app_text_styles.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
-import 'package:glp_manager_mobile/shared/widgets/social_login/social_login_button.dart';
-
-import '../../components/already_have_an_account_acheck.dart';
-import '../../components/rounded_button.dart';
-import '../../components/rounded_input_field.dart';
-import '../../components/rounded_password_field.dart';
+import 'package:skeletons/skeletons.dart';
 
 class BranchList extends StatefulWidget {
   const BranchList({Key? key}) : super(key: key);
@@ -50,7 +43,39 @@ class _BranchListState extends State<BranchList> {
                     return Container(
                       height: 50,
                       child: Row(
-                        children: <Widget>[Text(branches[index].name)],
+                        children: <Widget>[
+                          Container(
+                              child: true
+                                  ? SkeletonAvatar(
+                                      style: SkeletonAvatarStyle(
+                                          shape: BoxShape.circle,
+                                          width: 40,
+                                          height: 40),
+                                    )
+                                  : CircleAvatar(
+                                      backgroundColor: Colors.grey.shade200,
+                                      backgroundImage:
+                                          NetworkImage(branches[index].img),
+                                    )),
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                SkeletonLine(
+                                  style: SkeletonLineStyle(
+                                      width: 150,
+                                      height: 15,
+                                      padding: EdgeInsets.only(bottom: 8),
+                                      borderRadius: BorderRadius.circular(20)),
+                                ),
+                                SkeletonLine(
+                                    style: SkeletonLineStyle(
+                                        width: 100,
+                                        height: 15,
+                                        borderRadius:
+                                            BorderRadius.circular(20)))
+                              ])
+                        ],
                       ),
                     );
                   },
