@@ -22,16 +22,36 @@ class _BranchListState extends State<BranchList> {
     return Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
-            backgroundColor: AppColors.primary, title: Text("GLP Manager")),
+          backgroundColor: AppColors.primary,
+          leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
+          title: Center(child: Text("GLP Manager")),
+          actions: <Widget>[
+            Stack(children: [
+              IconButton(
+                  onPressed: () {}, icon: Icon(Icons.notifications_none)),
+              Container(
+                width: 7,
+                height: 7,
+                alignment: Alignment.center,
+                decoration:
+                    BoxDecoration(color: Colors.amber, shape: BoxShape.circle),
+                margin: EdgeInsets.only(left: 27, top: 10),
+              )
+            ])
+          ],
+        ),
         body: Container(
           child: Column(
             children: <Widget>[
               Container(
-                height: 50,
+                height: 100,
                 child: Center(
                     child: Text(
                   "Filiais",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Color.fromARGB(255, 85, 85, 85)),
                 )),
               ),
               Expanded(
@@ -57,6 +77,7 @@ class _BranchListState extends State<BranchList> {
                                       backgroundImage:
                                           NetworkImage(branches[index].img),
                                     )),
+                          SizedBox(width: 20),
                           Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
