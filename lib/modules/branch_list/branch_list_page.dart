@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:glp_manager_mobile/mock/BranchGenerator.dart';
 import 'package:glp_manager_mobile/models/Branch.dart';
