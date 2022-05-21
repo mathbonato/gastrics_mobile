@@ -40,11 +40,16 @@ class _BranchListState extends State<BranchList> {
             ])
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: Colors.purple,
+          child: Icon(Icons.add),
+        ),
         body: Container(
           child: Column(
             children: <Widget>[
               Container(
-                height: 100,
+                height: 80,
                 child: Center(
                     child: Text(
                   "Filiais",
@@ -57,7 +62,7 @@ class _BranchListState extends State<BranchList> {
               Expanded(
                   child: Container(
                 child: ListView.separated(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
                   itemCount: branches.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
@@ -65,7 +70,7 @@ class _BranchListState extends State<BranchList> {
                       child: Row(
                         children: <Widget>[
                           Container(
-                              child: true
+                              child: false
                                   ? SkeletonAvatar(
                                       style: SkeletonAvatarStyle(
                                           shape: BoxShape.circle,
@@ -82,19 +87,27 @@ class _BranchListState extends State<BranchList> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                SkeletonLine(
-                                  style: SkeletonLineStyle(
-                                      width: 150,
-                                      height: 15,
-                                      padding: EdgeInsets.only(bottom: 8),
-                                      borderRadius: BorderRadius.circular(20)),
+                                Text(
+                                  branches[index].name,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                SkeletonLine(
-                                    style: SkeletonLineStyle(
-                                        width: 100,
-                                        height: 15,
-                                        borderRadius:
-                                            BorderRadius.circular(20)))
+                                Text(
+                                  'R: ' + branches[index].street + ', nº 123',
+                                  style: TextStyle(color: Colors.grey[500]),
+                                )
+                                //   SkeletonLine(
+                                //     style: SkeletonLineStyle(
+                                //         width: 150,
+                                //         height: 15,
+                                //         padding: EdgeInsets.only(bottom: 8),
+                                //         borderRadius: BorderRadius.circular(20)),
+                                //   ),
+                                //   SkeletonLine(
+                                //       style: SkeletonLineStyle(
+                                //           width: 100,
+                                //           height: 15,
+                                //           borderRadius:
+                                //               BorderRadius.circular(20)))
                               ])
                         ],
                       ),
