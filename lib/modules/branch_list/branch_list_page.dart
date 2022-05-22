@@ -1,12 +1,10 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:glp_manager_mobile/mock/BranchGenerator.dart';
 import 'package:glp_manager_mobile/models/Branch.dart';
+import 'package:glp_manager_mobile/modules/branch_create/branch_create_page.dart';
+import 'package:glp_manager_mobile/modules/dashboard/drawer.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
-import 'package:skeletons/skeletons.dart';
 
 class BranchList extends StatefulWidget {
   const BranchList({Key? key}) : super(key: key);
@@ -21,11 +19,12 @@ class _BranchListState extends State<BranchList> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
         backgroundColor: AppColors.background,
+        drawer: new CustomDrawer(),
         appBar: AppBar(
           backgroundColor: AppColors.primary,
-          leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
           title: Center(child: Text("GLP Manager")),
           actions: <Widget>[
             Stack(children: [
@@ -35,16 +34,19 @@ class _BranchListState extends State<BranchList> {
                 width: 7,
                 height: 7,
                 alignment: Alignment.center,
-                decoration:
-                    BoxDecoration(color: Colors.amber, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 221, 75, 209),
+                    shape: BoxShape.circle),
                 margin: EdgeInsets.only(left: 27, top: 10),
               )
             ])
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.purple,
+          onPressed: () {
+            Get.to(BranchCreate());
+          },
+          backgroundColor: AppColors.primary,
           child: Icon(Icons.add),
         ),
         body: Container(
@@ -72,18 +74,10 @@ class _BranchListState extends State<BranchList> {
                       child: Row(
                         children: <Widget>[
                           Container(
-                              child: false
-                                  ? SkeletonAvatar(
-                                      style: SkeletonAvatarStyle(
-                                          shape: BoxShape.circle,
-                                          width: 40,
-                                          height: 40),
-                                    )
-                                  : CircleAvatar(
-                                      backgroundColor: Colors.grey.shade200,
-                                      backgroundImage:
-                                          NetworkImage(branches[index].img),
-                                    )),
+                              child: CircleAvatar(
+                            backgroundColor: Colors.grey.shade200,
+                            backgroundImage: NetworkImage(branches[index].img),
+                          )),
                           SizedBox(width: 20),
                           Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -97,19 +91,6 @@ class _BranchListState extends State<BranchList> {
                                   'R: ' + branches[index].street + ', nº 123',
                                   style: TextStyle(color: Colors.grey[500]),
                                 )
-                                //   SkeletonLine(
-                                //     style: SkeletonLineStyle(
-                                //         width: 150,
-                                //         height: 15,
-                                //         padding: EdgeInsets.only(bottom: 8),
-                                //         borderRadius: BorderRadius.circular(20)),
-                                //   ),
-                                //   SkeletonLine(
-                                //       style: SkeletonLineStyle(
-                                //           width: 100,
-                                //           height: 15,
-                                //           borderRadius:
-                                //               BorderRadius.circular(20)))
                               ])
                         ],
                       ),

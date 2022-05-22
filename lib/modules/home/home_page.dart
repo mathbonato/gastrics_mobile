@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:glp_manager_mobile/components/rounded_button.dart';
 import 'package:glp_manager_mobile/modules/login/login_page.dart';
 import 'package:glp_manager_mobile/modules/singup/singup_page.dart';
 import 'package:glp_manager_mobile/shared/themes/app_images.dart';
@@ -55,14 +56,9 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        minimumSize:
-                            MaterialStateProperty.all(const Size(400, 50)),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            AppColors.primary)),
-                    onPressed: () => Get.to(LoginPage()),
-                    child: const Text('Entrar'),
+                  RoundedButton(
+                    text: "Entrar",
+                    press: () => Get.to(LoginPage()),
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
