@@ -43,7 +43,9 @@ class _CustomCardState extends State<CustomCard> {
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: AppColors.background,
-                  fontSize: 18)),
+                  fontSize: 18,
+                  decoration:TextDecoration.none,)),
+
           Center(
             child: Text('${widget.percentage}%',
                 maxLines: 1,
@@ -51,7 +53,8 @@ class _CustomCardState extends State<CustomCard> {
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.background,
-                    fontSize: 18)),
+                    fontSize: 18,
+                    decoration:TextDecoration.none,)),
           ),
           ProgressLine(
               color: widget.percentage <= 10 ? Colors.red : Colors.green,
