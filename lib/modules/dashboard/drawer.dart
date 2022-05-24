@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:glp_manager_mobile/modules/branch_list/branch_list_page.dart';
 import 'package:glp_manager_mobile/modules/home/home_page.dart';
 import 'package:glp_manager_mobile/shared/themes/app_images.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
@@ -34,9 +35,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
           onTap: () {},
         ),
         const Divider(),
-        const ListTile(
+        ListTile(
           title: Text('Filiais'),
           leading: Icon(Icons.villa_sharp),
+          onTap: () {
+            Get.to(BranchList());
+          },
         ),
         const Divider(),
         ListTile(

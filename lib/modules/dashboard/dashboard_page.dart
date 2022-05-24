@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:glp_manager_mobile/components/card.dart';
 import 'package:glp_manager_mobile/modules/dashboard/drawer.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';

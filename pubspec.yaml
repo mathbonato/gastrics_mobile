@@ -37,6 +37,7 @@ dependencies:
   google_fonts: ^2.3.2
   get:
   modal_bottom_sheet: ^2.0.1
+  skeletons: ^0.0.3
 
 dev_dependencies:
   flutter_test:
