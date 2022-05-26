@@ -6,8 +6,9 @@ import 'package:glp_manager_mobile/models/Branch.dart';
 import 'package:glp_manager_mobile/modules/botijao/botijao_page.dart';
 import 'package:glp_manager_mobile/modules/branch_create/branch_create_page.dart';
 import 'package:glp_manager_mobile/modules/dashboard/drawer.dart';
-import 'package:glp_manager_mobile/modules/notifications_view/notifications_view.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
+
+import '../../components/notification_bell.dart';
 
 class BranchList extends StatefulWidget {
   const BranchList({Key? key}) : super(key: key);
@@ -25,31 +26,9 @@ class _BranchListState extends State<BranchList> {
         backgroundColor: AppColors.background,
         drawer: const CustomDrawer(),
         appBar: AppBar(
-          backgroundColor: AppColors.primary,
-          title: const Center(child: Text("GLP Manager")),
-          actions: <Widget>[
-            Stack(children: [
-              IconButton(
-                onPressed: () {
-                  Get.to(const NotificationsView());
-                },
-                icon: const Icon(Icons.notifications_none),
-              ),
-              Container(
-                width: 7,
-                height: 7,
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 221, 75, 209),
-                    shape: BoxShape.circle),
-                margin: const EdgeInsets.only(
-                  left: 27,
-                  top: 10,
-                ),
-              )
-            ])
-          ],
-        ),
+            backgroundColor: AppColors.primary,
+            title: const Center(child: Text("Gastrics")),
+            actions: notificationBell()),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Get.to(const BranchCreate());

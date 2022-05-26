@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-          backgroundColor: AppColors.primary, title: const Text("GLP Manager")),
+          backgroundColor: AppColors.primary, title: const Text("Gastrics")),
       body: Container(
         width: double.infinity,
         height: size.height,

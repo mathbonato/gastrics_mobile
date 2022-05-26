@@ -22,8 +22,8 @@ class _SingUpPageState extends State<SingUpPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-          backgroundColor: AppColors.primary, title: Text("GLP Manager")),
+      appBar:
+          AppBar(backgroundColor: AppColors.primary, title: Text("Gastrics")),
       body: Container(
         width: double.infinity,
         height: size.height,

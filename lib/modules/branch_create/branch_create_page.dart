@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glp_manager_mobile/components/notification_bell.dart';
 import 'package:glp_manager_mobile/components/rounded_button.dart';
 import 'package:glp_manager_mobile/components/rounded_input_field.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
@@ -16,10 +17,10 @@ class _BranchCreateState extends State<BranchCreate> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: AppColors.primary,
-        title: const Text("GLP Manager"),
-      ),
+          centerTitle: true,
+          backgroundColor: AppColors.primary,
+          title: const Text("Gastrics"),
+          actions: notificationBell()),
       body: Column(
         children: <Widget>[
           const SizedBox(

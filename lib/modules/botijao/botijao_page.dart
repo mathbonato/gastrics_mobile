@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glp_manager_mobile/components/card_img_description.dart';
 import 'package:glp_manager_mobile/components/header_img_description.dart';
+import 'package:glp_manager_mobile/components/notification_bell.dart';
 import 'package:glp_manager_mobile/components/searcher.dart';
 import 'package:glp_manager_mobile/models/Branch.dart';
 import 'package:glp_manager_mobile/models/GasCanister.dart';
@@ -27,10 +28,10 @@ class _BotijaoPageState extends State<BotijaoPage> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: AppColors.primary,
-        title: const Text("GLP Manager"),
-      ),
+          centerTitle: true,
+          backgroundColor: AppColors.primary,
+          title: const Text("Gastrics"),
+          actions: notificationBell()),
       body: Column(
         children: <Widget>[
           Container(

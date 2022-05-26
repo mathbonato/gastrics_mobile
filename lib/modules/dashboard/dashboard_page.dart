@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glp_manager_mobile/components/card.dart';
+import 'package:glp_manager_mobile/components/notification_bell.dart';
 import 'package:glp_manager_mobile/modules/dashboard/drawer.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
@@ -11,16 +12,18 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  String dropdownValue = 'Filial1';
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    String dropdownValue = 'Filial1';
 
     return Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
             backgroundColor: AppColors.primary,
-            title: const Text("GLP Manager")),
+            title: const Text("Gastrics"),
+            actions: notificationBell()),
         drawer: const CustomDrawer(),
         body: Column(
           children: [

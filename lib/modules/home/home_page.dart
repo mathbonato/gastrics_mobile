@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                     padding:
                         const EdgeInsets.only(left: 60, right: 60, bottom: 20),
                     child: Text(
-                      "Gerêncie o consumo de GLP da sua empresa em um só lugar.",
+                      "Gerêncie o consumo de gás da sua empresa em um só lugar.",
                       style: TextStyles.titleHome,
                       textAlign: TextAlign.center,
                     ),
