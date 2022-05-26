@@ -34,23 +34,19 @@ class HeaderImgDescription extends StatefulWidget {
 }
 
 class _HeaderImgDescription extends State<HeaderImgDescription> {
+  var selectedIconOne = true;
+  var selectedIconTwo = false;
+
+  void _handleClickIcon(String iconClicked) {
+    setState(() {
+      selectedIconOne = iconClicked == 'one';
+      selectedIconTwo = iconClicked == 'two';
+    });
+    // widget.iconOneAction!();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var selectedIconOne = true;
-    var selectedIconTwo = false;
-
-    handleIconOneClick() {
-      selectedIconOne = !selectedIconOne;
-      selectedIconTwo = !selectedIconTwo;
-      // widget.iconOneAction!();
-    }
-
-    handleIconTwoClick() {
-      selectedIconTwo = !selectedIconTwo;
-      selectedIconOne = !selectedIconOne;
-      // widget.iconTwoAction!();
-    }
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -93,7 +89,9 @@ class _HeaderImgDescription extends State<HeaderImgDescription> {
                         ? Column(
                             children: <Widget>[
                               IconButton(
-                                onPressed: () => handleIconOneClick(),
+                                onPressed: () {
+                                  _handleClickIcon('one');
+                                },
                                 icon: Icon(
                                   widget.iconOneRef,
                                   color: selectedIconOne
@@ -116,7 +114,9 @@ class _HeaderImgDescription extends State<HeaderImgDescription> {
                         ? Column(
                             children: <Widget>[
                               IconButton(
-                                onPressed: () => handleIconTwoClick(),
+                                onPressed: () {
+                                  _handleClickIcon('two');
+                                },
                                 icon: Icon(
                                   widget.iconTwoRef,
                                   color: selectedIconTwo

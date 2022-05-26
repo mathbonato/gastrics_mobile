@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:glp_manager_mobile/components/card_img_description.dart';
 import 'package:glp_manager_mobile/components/header_img_description.dart';
 import 'package:glp_manager_mobile/components/searcher.dart';
 import 'package:glp_manager_mobile/models/Branch.dart';
 import 'package:glp_manager_mobile/models/GasCanister.dart';
-import 'package:glp_manager_mobile/modules/dashboard/dashboard_page.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
-
-import '../../components/already_have_an_account_acheck.dart';
-import '../../components/rounded_button.dart';
-import '../../components/rounded_input_field.dart';
-import '../../components/rounded_password_field.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:glp_manager_mobile/components/card.dart';
-import 'package:glp_manager_mobile/components/progress_line.dart';
 
 class BotijaoPage extends StatefulWidget {
   const BotijaoPage({
