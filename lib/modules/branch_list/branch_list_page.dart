@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:glp_manager_mobile/components/card_img_description.dart';
 import 'package:glp_manager_mobile/mock/BranchGenerator.dart';
 import 'package:glp_manager_mobile/models/Branch.dart';
+import 'package:glp_manager_mobile/modules/botijao/botijao_page.dart';
 import 'package:glp_manager_mobile/modules/branch_create/branch_create_page.dart';
 import 'package:glp_manager_mobile/modules/dashboard/drawer.dart';
 import 'package:glp_manager_mobile/modules/notifications_view/notifications_view.dart';
@@ -29,7 +31,7 @@ class _BranchListState extends State<BranchList> {
             Stack(children: [
               IconButton(
                 onPressed: () {
-                  Get.to(NotificationsView());
+                  Get.to(const NotificationsView());
                 },
                 icon: const Icon(Icons.notifications_none),
               ),
@@ -80,38 +82,15 @@ class _BranchListState extends State<BranchList> {
                   ),
                   itemCount: branches.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      height: 50,
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            child: CircleAvatar(
-                              backgroundColor: Colors.grey.shade200,
-                              backgroundImage:
-                                  NetworkImage(branches[index].img),
-                            ),
-                          ),
-                          const SizedBox(width: 20),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                branches[index].name,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                'R: ' + branches[index].street + ', nº 123',
-                                style: TextStyle(
-                                  color: Colors.grey[500],
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+                    return CardImgDescription(
+                      title: branches[index].name,
+                      subtitle: branches[index].street,
+                      img: branches[index].img,
+                      editIcon: true,
+                      editAction: () {},
+                      onCardClick: () => {
+                        Get.to(BotijaoPage(branch: branches[index])),
+                      },
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>

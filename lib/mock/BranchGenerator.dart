@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:glp_manager_mobile/models/Branch.dart';
@@ -52,7 +51,12 @@ class BranchGenerator {
           _secondStreetName[randomSecondStreetNameNum];
 
       branch.name = randomFirstName + ' ' + randomSecondName;
-      branch.street = randomFirstStreetName + ' ' + randomSecondStreetName;
+      branch.street = 'R: ' +
+          randomFirstStreetName +
+          ' ' +
+          randomSecondStreetName +
+          ', nº ' +
+          Random().nextInt(1000).toString();
       branch.img =
           'https://xerpay.com.br/blog/wp-content/uploads/sites/2/2019/06/empresas-do-futuro.jpg';
       branch.canisters = _generateCanisters(randomQttOfCanisters);

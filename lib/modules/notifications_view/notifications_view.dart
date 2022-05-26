@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:glp_manager_mobile/components/notification_card.dart';
-import 'package:glp_manager_mobile/modules/dashboard/drawer.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
 class NotificationsView extends StatefulWidget {
@@ -23,7 +22,6 @@ class _NotificationsViewState extends State<NotificationsView> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      drawer: const CustomDrawer(),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: AppColors.primary,
