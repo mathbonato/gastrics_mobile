@@ -5,6 +5,11 @@ import 'package:glp_manager_mobile/components/searcher.dart';
 import 'package:glp_manager_mobile/models/Branch.dart';
 import 'package:glp_manager_mobile/models/GasCanister.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
+import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:glp_manager_mobile/components/rounded_button.dart';
+import 'package:glp_manager_mobile/components/rounded_input_field.dart';
+import 'package:glp_manager_mobile/components/progress_line.dart';
 
 class BotijaoPage extends StatefulWidget {
   const BotijaoPage({
@@ -19,6 +24,11 @@ class BotijaoPage extends StatefulWidget {
 }
 
 class _BotijaoPageState extends State<BotijaoPage> {
+  TextEditingController name = TextEditingController();
+  TextEditingController peso = TextEditingController();
+  TextEditingController casco = TextEditingController();
+  TextEditingController desc = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     Branch branch = widget.branch;
@@ -27,6 +37,7 @@ class _BotijaoPageState extends State<BotijaoPage> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+<<<<<<< Updated upstream
         centerTitle: true,
         backgroundColor: AppColors.primary,
         title: const Text("GLP Manager"),
@@ -34,6 +45,145 @@ class _BotijaoPageState extends State<BotijaoPage> {
       body: Column(
         children: <Widget>[
           Container(
+=======
+<<<<<<< Updated upstream
+          backgroundColor: AppColors.primary, title: const Text("GLP Manager")),
+      body: Container(
+        child: Column(
+          children:<Widget>[
+          
+          Container(
+            margin: EdgeInsets.only(top:20.0),
+            child: Center(child:Text("Filial 1",style:TextStyle(fontWeight:FontWeight.bold,fontSize:24)),),),
+            
+            Expanded(
+              
+            child:Container(
+              margin: EdgeInsets.only(top:100.0),
+          child:ListView.separated(
+              itemCount: _myList.length,
+            // The list items
+            itemBuilder: (context, index) {
+              return Container(
+                child:Row(
+                  mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                  children:<Widget>[
+                    Container(
+                      margin:EdgeInsets.only(left:5),
+                      child:Text(
+                      _myList[index],
+                style: const TextStyle(fontSize: 16),
+                    ),
+                    ),
+                    Container(
+                      child:Row(
+                        children:<Widget>[
+                          IconButton(
+                            iconSize:20,
+                            icon: Icon(
+                          Icons.add,
+                          color:Colors.green,
+                          
+                    ),
+                          onPressed:(){
+                            showCupertinoModalBottomSheet(
+                            context: context,
+                            builder: (context) => Container(
+                              height:MediaQuery.of(context).size.height*0.7,
+=======
+        centerTitle: true,
+        backgroundColor: AppColors.primary,
+        title: const Text("GLP Manager"),
+      ),
+       floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showCupertinoModalBottomSheet(
+            context: context,
+            builder: (context) => Container(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: Padding(
+                padding:EdgeInsets.all(30),
+                child:Form(
+                  child: Column(
+                    children: <Widget> [
+                      Text(
+                        "Criar Botijão",
+                        style: TextStyle(fontSize:24,color:Colors.black,decoration:TextDecoration.none),
+                      ),
+                      Material(
+                     child :TextFormField(
+                       controller:name,
+                       decoration: InputDecoration(labelText:"Id do botijão",
+                       labelStyle: TextStyle(
+	                      color: Colors.black,
+                      ),
+                       focusedBorder:OutlineInputBorder(
+                       borderSide: const BorderSide(color: AppColors.primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                       ),
+                ),),),
+                      Padding( padding:EdgeInsets.all(10)),
+                      Material(
+                     child :TextFormField(
+                       controller:peso,
+                       decoration: InputDecoration(labelText:"Capacidade do botijão",
+                       labelStyle: TextStyle(
+	                      color: Colors.black,
+                      ),
+                       focusedBorder:OutlineInputBorder(
+                       borderSide: const BorderSide(color: AppColors.primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                       ),
+                ),),),
+                      Padding( padding:EdgeInsets.all(10)),
+                      Material(
+                        child :TextFormField(
+                        controller:casco,
+                        decoration: InputDecoration(labelText:"Peso do casco do botijão",
+                        labelStyle: TextStyle(
+	                      color: Colors.black,
+                      ),
+                       focusedBorder:OutlineInputBorder(
+                       borderSide: const BorderSide(color: AppColors.primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                       ),
+                ),),),
+                      Padding( padding:EdgeInsets.all(15)),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: AppColors.primary
+                        ),
+                        onPressed:(){
+                          GasCanister gas = GasCanister();
+                          gas.name = name.text;
+                          gas.totalWeight=double.parse(peso.text);
+                          gas.gasHullWeight = double.parse(casco.text);
+                          gas.img = "https://a-static.mlcdn.com.br/1500x1500/botijao-de-gas-13kg-liquigas/doisirmaosdistribuidora/d1a9bcc2593111ec9a154201ac18503a/8e2690349b445e82c17437d629fa10a0.jpg";
+                          setState((){branch.canisters.add(gas);
+                          name.text="";
+                          peso.text="";
+                          casco.text="";
+                          });
+                          Navigator.pop(context);
+                        },
+                        child: Text("Criar",style: TextStyle(color:Colors.white,decoration:TextDecoration.none),),
+                      )
+
+
+                    ]
+                  ),
+                ),
+              ),
+            ),
+);
+          },
+          backgroundColor: AppColors.primary,
+          child: const Icon(Icons.add),
+        ),
+      body: Column(
+        children: <Widget>[
+          Container(
+>>>>>>> Stashed changes
             padding: const EdgeInsets.only(
               left: 20,
               right: 20,
@@ -61,6 +211,7 @@ class _BotijaoPageState extends State<BotijaoPage> {
               pleaceHolder: 'Procurar cilindro',
               title: 'cilindros',
             ),
+<<<<<<< Updated upstream
           ),
           Expanded(
             child: Container(
@@ -77,18 +228,295 @@ class _BotijaoPageState extends State<BotijaoPage> {
                     GasCanister canister = canisters[index];
 
                     return CardImgDescription(
+=======
+          ),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.only(top: 40.0),
+              child: ListView.separated(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    bottom: 20,
+                  ),
+                  itemCount: canisters.length,
+                  // The list items
+                  itemBuilder: (context, index) {
+                    GasCanister canister = canisters[index];
+                    double per = (canister.actualWeight/ canister.totalWeight)*100;
+                    int? peri = per.toInt();
+                    return InkWell(
+                      onTap:(){
+                        showCupertinoModalBottomSheet(
+                          context: context,
+                          builder: (context) => Container(
+                            color: AppColors.primary,
+                               height:MediaQuery.of(context).size.height*0.5,
+>>>>>>> Stashed changes
+                                padding:EdgeInsets.all(8),
+                                   child: Column(
+                                children:<Widget>[
+                                    Text(
+<<<<<<< Updated upstream
+                                      "Dados do Botijão",style:TextStyle(fontSize:14,color:Colors.black,decoration:TextDecoration.none),
+                                    ),
+                                       Text(
+                                      "20KG",style:TextStyle(fontSize:14,color:Colors.black,decoration:TextDecoration.none),
+                                    ),
+                                    Card(
+                                      
+                                       child:Column(
+                                         
+                                         children:<Widget>[
+                                           
+                                           Text(
+                                             "Peso atual : 15KG",style:TextStyle(fontSize:14,color:Colors.black,decoration:TextDecoration.none),
+                                           ),
+                                           Container(
+                                             padding:EdgeInsets.all(8),
+                                              child: ProgressLine(
+                                               
+                                               color: Colors.green,
+                                               percentage: 75),
+                                           ),
+                                          
+                                         ],
+                                       ),
+                                       
+                                       
+                                       
+                                       
+                                       
+=======
+                                      "Dados do Recipiente",style:TextStyle(fontSize:24,color:Colors.white,decoration:TextDecoration.none),
+                                    ),
+                                    Card(
+                                      color:AppColors.primary,
+                                       child:Column(
+
+                                         children:<Widget>[
+
+                                           Container(
+                                             padding:EdgeInsets.all(8),
+                                              child: ProgressLine(
+
+                                               color: Colors.green,
+                                               percentage:peri,
+                                           ),
+                                           ),
+                                           Text(
+                                             peri.toString()+"%" ,style:TextStyle(fontSize:14,color:Colors.white,decoration:TextDecoration.none),
+                                           ),
+                                         ],
+                                       ),
+                                    ),
+                                    Padding(padding:EdgeInsets.only(top:20)),
+                                       Text(
+                                      canister.name ,style:TextStyle(fontSize:14,color:Colors.white,decoration:TextDecoration.none),
+                                    ),
+                                      Padding(padding:EdgeInsets.only(top:5)),
+                                       Text(
+                                      "Peso atual: "+canister.actualWeight.toStringAsFixed(2) + "Kg" ,style:TextStyle(fontSize:14,color:Colors.white,decoration:TextDecoration.none),
+                                    ),
+                                    Padding(padding:EdgeInsets.only(top:5)),
+                                       Text(
+                                      "Capacidade máxima: "+canister.totalWeight.toStringAsFixed(2) + "Kg" ,style:TextStyle(fontSize:14,color:Colors.white,decoration:TextDecoration.none),
+                                    ),
+                                    Padding(padding:EdgeInsets.only(top:5)),
+                                       Text(
+                                      "Atualizado em 26/05/2022" ,style:TextStyle(fontSize:14,color:Colors.white,decoration:TextDecoration.none),
+>>>>>>> Stashed changes
+                                    ),
+
+                                ],
+                              ),
+<<<<<<< Updated upstream
+                              
+                              ),
+);
+                          }
+                          ),
+                        
+                      IconButton(
+                            iconSize:20,
+                            icon: Icon(
+                          Icons.delete,
+                          color:Colors.red,
+                          
+                    ),
+                          onPressed:(){
+        showCupertinoModalBottomSheet(
+                            context: context,
+                            builder: (context) => Container(
+                              padding:EdgeInsets.all(8),
+                              height:MediaQuery.of(context).size.height*0.2,
+                              child: Column(
+                                children:<Widget>[
+                                    Text(
+                                      "Deseja excluir este botijão?",style:TextStyle(fontSize:14,color:Colors.black,decoration:TextDecoration.none),
+                                    ),
+                                    RoundedButton(
+                                      text:"Confirmar",
+                                      color:Colors.red,
+                                      press:(){
+                                        setState((){
+                                        _myList.removeAt(index);
+                                        
+                                        });
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                ],
+                              ),
+                              ),
+);
+
+                          }
+                          ),
+                        ],
+                      ),
+                    ),
+                  
+                  ],
+                ),
+                
+              );
+            },
+            // The separators
+            separatorBuilder: (context, index) {
+              return Divider(
+                color: Colors.black,
+              );  
+            }),
+          ),
+=======
+
+                          ),
+                        );
+                      },
+                      child:CardImgDescription(
+>>>>>>> Stashed changes
                       title: canister.name,
                       subtitle: canister.description,
                       img: canister.img,
                       editIcon: true,
                       removeIcon: true,
+<<<<<<< Updated upstream
                     );
+=======
+                      editAction: (){
+                        casco.text = canister.gasHullWeight.toString();
+                        peso.text = canister.totalWeight.toString();
+                        name.text= canister.name;
+                        desc.text = canister.description;
+                          showCupertinoModalBottomSheet(
+            context: context,
+            builder: (context) => Container(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: Padding(
+                padding:EdgeInsets.all(30),
+                child:Form(
+                  child: Column(
+                    children: <Widget> [
+                      Text(
+                        "Criar Botijão",
+                        style: TextStyle(fontSize:24,color:Colors.black,decoration:TextDecoration.none),
+                      ),
+                      Material(
+                     child :TextFormField(
+                       controller:name,
+                       decoration: InputDecoration(labelText:"Id do botijão",
+                       labelStyle: TextStyle(
+	                      color: Colors.black,
+                      ),
+                       focusedBorder:OutlineInputBorder(
+                       borderSide: const BorderSide(color: AppColors.primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                       ),
+                ),),),
+                      Padding( padding:EdgeInsets.all(10)),
+                      Material(
+                     child :TextFormField(
+                       controller:peso,
+                       decoration: InputDecoration(labelText:"Capacidade do botijão",
+                       labelStyle: TextStyle(
+	                      color: Colors.black,
+                      ),
+                       focusedBorder:OutlineInputBorder(
+                       borderSide: const BorderSide(color: AppColors.primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                       ),
+                ),),),
+                      Padding( padding:EdgeInsets.all(10)),
+                      Material(
+                        child :TextFormField(
+                        controller:casco,
+                        decoration: InputDecoration(labelText:"Peso do casco do botijão",
+                        labelStyle: TextStyle(
+	                      color: Colors.black,
+                      ),
+                       focusedBorder:OutlineInputBorder(
+                       borderSide: const BorderSide(color: AppColors.primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                       ),
+                ),),),
+                      Padding( padding:EdgeInsets.all(15)),
+                      Material(
+                        child :TextFormField(
+                        controller:desc,
+                        decoration: InputDecoration(labelText:"Descrição do botijão",
+                        labelStyle: TextStyle(
+	                      color: Colors.black,
+                      ),
+                       focusedBorder:OutlineInputBorder(
+                       borderSide: const BorderSide(color: AppColors.primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                       ),
+                ),),),
+                      Padding( padding:EdgeInsets.all(15)),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: AppColors.primary
+                        ),
+                        onPressed:(){
+                          
+                          canister.name = name.text;
+                          canister.description = desc.text;
+                          canister.totalWeight=double.parse(peso.text);
+                          canister.gasHullWeight = double.parse(casco.text);
+                        
+                          setState((){});
+                          Navigator.pop(context);
+                        },
+                        child: Text("Salvar",style: TextStyle(color:Colors.white,decoration:TextDecoration.none),),
+                      )
+
+
+                    ]
+                  ),
+                ),
+              ),
+            ),
+);
+
+                      },
+                      removeAction:(){
+                        setState((){
+                          branch.canisters.removeAt(index);
+                        });
+                      },
+                    ));
+>>>>>>> Stashed changes
                   },
                   // The separators
                   separatorBuilder: (context, index) {
                     return const Divider();
                   }),
             ),
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
           ),
         ],
       ),

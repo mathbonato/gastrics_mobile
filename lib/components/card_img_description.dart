@@ -32,7 +32,11 @@ class _CardImgDescription extends State<CardImgDescription> {
     double screenWidthSize = MediaQuery.of(context).size.width;
 
     return GestureDetector(
+<<<<<<< Updated upstream
       onTap: () => widget.onCardClick!(),
+=======
+      //onTap: () => widget.onCardClick!(),
+>>>>>>> Stashed changes
       child: SizedBox(
         height: 50,
         child: Row(
