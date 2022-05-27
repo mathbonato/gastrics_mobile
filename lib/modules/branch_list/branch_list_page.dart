@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:glp_manager_mobile/components/card_img_description.dart';
 import 'package:glp_manager_mobile/mock/BranchGenerator.dart';
 import 'package:glp_manager_mobile/models/Branch.dart';
-import 'package:glp_manager_mobile/modules/botijao/botijao_page.dart';
 import 'package:glp_manager_mobile/modules/branch_create/branch_create_page.dart';
-import 'package:glp_manager_mobile/modules/dashboard/drawer.dart';
+import 'package:glp_manager_mobile/modules/drawer/drawer.dart';
+import 'package:glp_manager_mobile/modules/recipient/recipient_page.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
 import '../../components/notification_bell.dart';
@@ -68,7 +68,7 @@ class _BranchListState extends State<BranchList> {
                       editIcon: true,
                       editAction: () {},
                       onCardClick: () => {
-                        Get.to(BotijaoPage(branch: branches[index])),
+                        Get.to(RecipientPage(branch: branches[index])),
                       },
                     );
                   },

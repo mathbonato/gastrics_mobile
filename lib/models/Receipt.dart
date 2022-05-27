@@ -1,4 +1,4 @@
-class GasCanister {
+class Receipt {
   String name = '';
   String img = '';
   String description = '';

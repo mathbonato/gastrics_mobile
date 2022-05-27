@@ -36,7 +36,7 @@ class _NotificationsViewState extends State<NotificationsView> {
               itemBuilder: (BuildContext context, int index) {
                 return NotificationCard(
                   title: 'Alerta - Troca de Gás',
-                  subtitle: 'Filial / Botijão da cozinha',
+                  subtitle: 'Filial / Recipiente da cozinha',
                   indicatorVal: Random().nextInt(5),
                   indicatorDescription: 'Dias',
                   alertType: alertTypes[Random().nextInt(2)],

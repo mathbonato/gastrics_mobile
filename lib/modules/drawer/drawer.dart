@@ -19,22 +19,30 @@ class _CustomDrawerState extends State<CustomDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(padding: const EdgeInsets.all(0.0), children: <Widget>[
-        UserAccountsDrawerHeader(
-          accountName: const Text('Teste Almeida'),
-          accountEmail: const Text('teste@gmail.com'),
-          currentAccountPicture: const CircleAvatar(
+        const UserAccountsDrawerHeader(
+          accountName: Text('Teste Almeida'),
+          accountEmail: Text('teste@gmail.com'),
+          currentAccountPicture: CircleAvatar(
             backgroundImage: ExactAssetImage(AppImages.avatar),
           ),
-          onDetailsPressed: () {},
-          decoration: const BoxDecoration(color: AppColors.primary
-              //   image: DecorationImage(
-              //       image: AssetImage(AppImages.fundo), fit: BoxFit.cover)
-              ),
+          decoration: BoxDecoration(color: AppColors.primary),
         ),
         ListTile(
           title: const Text('Home'),
           leading: const Icon(Icons.home),
-          onTap: () => Get.to(DashboardPage()),
+          onTap: () => Get.to(const DashboardPage()),
+        ),
+        const Divider(),
+        ListTile(
+          title: const Text('Consumo'),
+          leading: const Icon(Icons.receipt_outlined),
+          onTap: () => Get.to(const MetricsPage()),
+        ),
+        const Divider(),
+        ListTile(
+          title: const Text('Filiais'),
+          leading: const Icon(Icons.villa_sharp),
+          onTap: () => Get.to(const BranchList()),
         ),
         const Divider(),
         ListTile(
@@ -44,27 +52,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
         ),
         const Divider(),
         ListTile(
-          title: Text('Filiais'),
-          leading: Icon(Icons.villa_sharp),
-          onTap: () => Get.to(BranchList()),
-        ),
-        const Divider(),
-        ListTile(
-          title: const Text('Metricas'),
-          leading: const Icon(Icons.area_chart_sharp),
-          onTap: () => Get.to(MetricsPage()),
-        ),
-        const Divider(),
-        ListTile(
-          title: const Text('Suporte'),
-          leading: const Icon(Icons.report_problem),
-          onTap: () {},
-        ),
-        const Divider(),
-        ListTile(
           title: const Text('Sair'),
           leading: const Icon(Icons.logout),
-          onTap: () => Get.to(HomePage()),
+          onTap: () => Get.to(const HomePage()),
         ),
         ListTile(
             title: const Text('Fechar'),

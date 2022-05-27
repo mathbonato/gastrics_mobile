@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:glp_manager_mobile/models/Branch.dart';
-import 'package:glp_manager_mobile/models/GasCanister.dart';
+import 'package:glp_manager_mobile/models/Receipt.dart';
 
 class BranchGenerator {
   final List<String> _branchFirstName = [
@@ -67,13 +67,13 @@ class BranchGenerator {
     return branches;
   }
 
-  List<GasCanister> _generateCanisters(int qtdOfCanister) {
-    List<GasCanister> canisters = [];
+  List<Receipt> _generateCanisters(int qtdOfCanister) {
+    List<Receipt> canisters = [];
 
     int qtdOfLocations = _canisterLocation.length;
 
     for (int i = 0; i < qtdOfCanister; i++) {
-      GasCanister canister = GasCanister();
+      Receipt canister = Receipt();
 
       int randomCanisterLocationNum = Random().nextInt(qtdOfLocations);
       String randomCanisterName = _canisterLocation[randomCanisterLocationNum];
