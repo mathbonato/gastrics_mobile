@@ -61,11 +61,73 @@ class _MetricsPage extends State<MetricsPage> {
               ),
             ),
             Text(
-              'Consumo mensal'.toUpperCase(),
+              'Consumo mensal (atual)'.toUpperCase(),
               style: const TextStyle(
                 color: AppColors.textPrimary,
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 15, left: 8, right: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        Container(
+                          color: Colors.red,
+                          width: 15,
+                          height: 15,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            '+1 desvio padrão',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      children: [
+                        Container(
+                          color: Colors.blue,
+                          width: 15,
+                          height: 15,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            'média',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      children: [
+                        Container(
+                          color: Colors.green,
+                          width: 15,
+                          height: 15,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            '-1 desvio padrão',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
             const LineChart1(),
@@ -77,34 +139,101 @@ class _MetricsPage extends State<MetricsPage> {
                 fontSize: 20,
               ),
             ),
-            Center(
-              child: Column(
+            const Padding(
+              padding: EdgeInsets.only(left: 12, right: 12),
+              child: Text(
+                'Selecione duas datas diferentes para comparar o consumo mensal de gás entre elas',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: AppColors.bla,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   //new buttonText starts
                   TextButton(
-                      onPressed: () {
-                        DatePicker.showPicker(context,
-                            theme: const DatePickerTheme(
-                                headerColor: Colors.grey,
-                                backgroundColor: AppColors.primary,
-                                itemStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                                doneStyle: TextStyle(
-                                    color: Colors.white, fontSize: 16)),
-                            pickerModel: CustomMonthPicker(
-                                locale: LocaleType.pt,
-                                minTime: DateTime(2020, 1, 1),
-                                maxTime: DateTime.now(),
-                                currentTime: DateTime.now()));
-                      },
-                      child: const Text(
-                        'Selecione uma data',
-                        style:
-                            TextStyle(color: AppColors.primary, fontSize: 14),
-                      )),
-                  //new buttonText ends.
+                    onPressed: () {
+                      DatePicker.showPicker(context,
+                          theme: const DatePickerTheme(
+                              headerColor: Colors.grey,
+                              backgroundColor: AppColors.primary,
+                              itemStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                              doneStyle:
+                                  TextStyle(color: Colors.white, fontSize: 16)),
+                          pickerModel: CustomMonthPicker(
+                              locale: LocaleType.pt,
+                              minTime: DateTime(2020, 1, 1),
+                              maxTime: DateTime.now(),
+                              currentTime: DateTime.now()));
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                    ),
+                    child: Container(
+                      child: Row(
+                        children: const [
+                          Text(
+                            'Data inicial',
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Icon(
+                              Icons.calendar_month,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      DatePicker.showPicker(context,
+                          theme: const DatePickerTheme(
+                              headerColor: Colors.grey,
+                              backgroundColor: AppColors.primary,
+                              itemStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                              doneStyle:
+                                  TextStyle(color: Colors.white, fontSize: 16)),
+                          pickerModel: CustomMonthPicker(
+                              locale: LocaleType.pt,
+                              minTime: DateTime(2020, 1, 1),
+                              maxTime: DateTime.now(),
+                              currentTime: DateTime.now()));
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                    ),
+                    child: Container(
+                      child: Row(
+                        children: const [
+                          Text(
+                            'Data final',
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Icon(
+                              Icons.calendar_month,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

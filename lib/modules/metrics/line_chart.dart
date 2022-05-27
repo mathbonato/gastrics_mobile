@@ -165,7 +165,7 @@ LineChartData mainData() {
         barWidth: 2,
         isStrokeCapRound: true,
         dotData: FlDotData(
-          show: true,
+          show: false,
         ),
       ),
       LineChartBarData(
@@ -183,7 +183,7 @@ LineChartData mainData() {
         barWidth: 2,
         isStrokeCapRound: true,
         dotData: FlDotData(
-          show: true,
+          show: false,
         ),
       ),
       LineChartBarData(
@@ -201,7 +201,7 @@ LineChartData mainData() {
         barWidth: 2,
         isStrokeCapRound: true,
         dotData: FlDotData(
-          show: true,
+          show: false,
         ),
       ),
     ],
