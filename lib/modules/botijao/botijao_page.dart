@@ -46,39 +46,12 @@ class _BotijaoPageState extends State<BotijaoPage> {
               "Dados do Botijão",
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.black,
+                color: Colors.white,
                 decoration: TextDecoration.none,
               ),
             ),
-            const Text(
-              "20KG",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-                decoration: TextDecoration.none,
-              ),
-            ),
-            Card(
-              child: Column(
-                children: <Widget>[
-                  const Text(
-                    "Peso atual : 15KG",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const ProgressLine(
-                      color: Colors.green,
-                      percentage: 75,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+           
+           
             Card(
               color: AppColors.primary,
               child: Column(
@@ -280,10 +253,17 @@ class _BotijaoPageState extends State<BotijaoPage> {
     desc.text = '';
 
     showCupertinoModalBottomSheet(
+
       context: context,
       builder: (context) => SizedBox(
         height: MediaQuery.of(context).size.height * 0.7,
-        child: Padding(
+        child:SingleChildScrollView( 
+          
+          reverse:MediaQuery.of(context).viewInsets.bottom !=0, 
+         
+            
+          
+           child: Padding(
           padding: const EdgeInsets.all(30),
           child: Form(
             child: Column(children: <Widget>[
@@ -377,7 +357,8 @@ class _BotijaoPageState extends State<BotijaoPage> {
               )
             ]),
           ),
-        ),
+        ),),
+      
       ),
     );
   }
