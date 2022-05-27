@@ -145,7 +145,7 @@ class _MetricsPage extends State<MetricsPage> {
                 'Selecione duas datas diferentes para comparar o consumo mensal de gás entre elas',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: AppColors.bla,
+                  color: AppColors.textPrimary,
                   fontSize: 14,
                 ),
               ),

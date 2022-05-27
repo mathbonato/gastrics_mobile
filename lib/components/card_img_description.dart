@@ -31,7 +31,7 @@ class _CardImgDescription extends State<CardImgDescription> {
   Widget build(BuildContext context) {
     double screenWidthSize = MediaQuery.of(context).size.width;
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => widget.onCardClick!(),
       child: SizedBox(
         height: 50,
