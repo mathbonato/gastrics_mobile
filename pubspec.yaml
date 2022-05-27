@@ -38,6 +38,8 @@ dependencies:
   get:
   modal_bottom_sheet: ^2.0.1
   skeletons: ^0.0.3
+  fl_chart: ^0.50.6
+  flutter_datetime_picker: ^1.5.1
 
 dev_dependencies:
   flutter_test:
