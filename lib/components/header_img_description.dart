@@ -90,6 +90,7 @@ class _HeaderImgDescription extends State<HeaderImgDescription> {
                             children: <Widget>[
                               IconButton(
                                 onPressed: () {
+                                  widget.iconOneAction!();
                                   _handleClickIcon('one');
                                 },
                                 icon: Icon(
@@ -115,6 +116,7 @@ class _HeaderImgDescription extends State<HeaderImgDescription> {
                             children: <Widget>[
                               IconButton(
                                 onPressed: () {
+                                  widget.iconTwoAction!();
                                   _handleClickIcon('two');
                                 },
                                 icon: Icon(
