@@ -326,6 +326,7 @@ class _RecipientPageState extends State<RecipientPage> {
                     gas.img =
                         "https://a-static.mlcdn.com.br/1500x1500/botijao-de-gas-13kg-liquigas/doisirmaosdistribuidora/d1a9bcc2593111ec9a154201ac18503a/8e2690349b445e82c17437d629fa10a0.jpg";
                     setState(() {
+                      widget.branch.canisters.add(gas);
                       name.text = "";
                       peso.text = "";
                       casco.text = "";
@@ -349,6 +350,7 @@ class _RecipientPageState extends State<RecipientPage> {
   @override
   Widget build(BuildContext context) {
     Branch branch = widget.branch;
+    List<Receipt> canisters = branch.canisters;
 
     return Scaffold(
       backgroundColor: AppColors.background,
