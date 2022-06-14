@@ -1,41 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:glp_manager_mobile/components/card.dart';
 import 'package:glp_manager_mobile/components/notification_bell.dart';
-import 'package:glp_manager_mobile/modules/metrics/bar_chart.dart';
-import 'package:glp_manager_mobile/modules/metrics/line_chart.dart';
-
-import '../../shared/themes/appcollors.dart';
-import '../dashboard/drawer.dart';
+import 'package:glp_manager_mobile/modules/drawer/drawer.dart';
+import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
 class MetricsPage extends StatefulWidget {
   const MetricsPage({Key? key}) : super(key: key);
 
   @override
-  _MetricsPage createState() => _MetricsPage();
+  State<MetricsPage> createState() => _MetricsPage();
 }
 
 class _MetricsPage extends State<MetricsPage> {
-  List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d3ea),
-  ];
-
   String dropdownValue = 'Filial1';
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-          backgroundColor: AppColors.primary,
-          title: const Text("Gastrics"),
-          actions: notificationBell()),
-      drawer: const CustomDrawer(),
-      body: SingleChildScrollView(
-        child: Column(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+            backgroundColor: AppColors.primary,
+            title: const Text("Gastrics"),
+            actions: notificationBell()),
+        drawer: const CustomDrawer(),
+        body: Column(
           children: [
+            SizedBox(height: size.height * 0.01),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(9.0),
               child: DropdownButton<String>(
                 value: dropdownValue,
                 icon: const Icon(Icons.arrow_downward),
@@ -60,78 +54,46 @@ class _MetricsPage extends State<MetricsPage> {
                 }).toList(),
               ),
             ),
-            Text(
-              'Consumo mensal'.toUpperCase(),
-              style: const TextStyle(
-                color: AppColors.textPrimary,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-            const LineChart1(),
-            Text(
-              'Comparação anual'.toUpperCase(),
-              style: const TextStyle(
-                color: AppColors.textPrimary,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-            Center(
-              child: Column(
-                children: <Widget>[
-                  //new buttonText starts
-                  TextButton(
-                      onPressed: () {
-                        DatePicker.showPicker(context,
-                            theme: const DatePickerTheme(
-                                headerColor: Colors.grey,
-                                backgroundColor: AppColors.primary,
-                                itemStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                                doneStyle: TextStyle(
-                                    color: Colors.white, fontSize: 16)),
-                            pickerModel: CustomMonthPicker(
-                                locale: LocaleType.pt,
-                                minTime: DateTime(2020, 1, 1),
-                                maxTime: DateTime.now(),
-                                currentTime: DateTime.now()));
-                      },
-                      child: const Text(
-                        'Selecione uma data',
-                        style:
-                            TextStyle(color: AppColors.primary, fontSize: 14),
-                      )),
-                  //new buttonText ends.
+            Expanded(
+              child: GridView.count(
+                primary: false,
+                padding: const EdgeInsets.all(20),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 2,
+                children: const [
+                  CustomCard(
+                    title: "123 - teste",
+                    maxWeight: 40,
+                    currentWeight: 20,
+                    percentage: 50,
+                    date: '13/07/2022',
+                  ),
+                  CustomCard(
+                    title: "546 - teste1",
+                    maxWeight: 40,
+                    currentWeight: 30,
+                    percentage: 90,
+                    date: '13/07/2022',
+                  ),
+                  CustomCard(
+                    title: "466 - teste2",
+                    maxWeight: 40,
+                    currentWeight: 10,
+                    percentage: 100,
+                    date: '13/07/2022',
+                  ),
+                  CustomCard(
+                    title: "807 - teste3",
+                    maxWeight: 70,
+                    currentWeight: 10,
+                    percentage: 10,
+                    date: '13/02/2022',
+                  ),
                 ],
               ),
             ),
-            const BarChartSample4(),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomMonthPicker extends DatePickerModel {
-  CustomMonthPicker(
-      {DateTime? currentTime,
-      DateTime? minTime,
-      DateTime? maxTime,
-      DatePickerTheme? theme,
-      LocaleType? locale})
-      : super(
-          locale: locale,
-          minTime: minTime,
-          maxTime: maxTime,
-          currentTime: currentTime,
-        );
-
-  @override
-  List<int> layoutProportions() {
-    return [1, 1, 0];
+        ));
   }
 }
