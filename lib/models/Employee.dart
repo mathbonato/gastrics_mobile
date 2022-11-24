@@ -3,7 +3,7 @@ class Employee {
   String name = '';
   String lastName = '';
   String type = '';
-  String birth = '';
+  DateTime? birth;
   String cpf = '';
   String email = '';
 
@@ -15,7 +15,7 @@ class Employee {
       json['name'] as String,
       json['lastName'] as String,
       json['type'] as String,
-      json['birth'] as String,
+      json['birth'] as DateTime,
       json['cpf'] as String,
       json['email'] as String,
     );
