@@ -54,6 +54,21 @@ class BranchController {
       return newBranch;
     }
 
+    Future<Branch?> updateBranch(String companyId, Branch branch) async {
+      Uri route = prepareUrl("/$companyId/branch");
+      var response = await http.put(route, body: branch);
+
+      if (response.statusCode != 200) {
+        return null;
+      }
+
+      var json = jsonDecode(response.body); 
+
+      Branch updatedBranch = Branch.fromJson(json);
+
+      return updatedBranch;
+    }
+
     Future<bool> deleteBranch(String companyId, Branch branch) async {
       var branchId = branch.id;
 
