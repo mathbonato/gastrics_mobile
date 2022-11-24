@@ -19,6 +19,11 @@ class Branch {
       var cylinderToAdd = Cylinder.fromJson(jsonCylinder);
       cylindersFromJson.add(cylinderToAdd);
     });
-    return Branch(json['id'] as String, json['name'] as String, json['address'] as String, cylindersFromJson);
+    return Branch(
+      json['id'] as String, 
+      json['name'] as String, 
+      json['address'] as String, 
+      cylindersFromJson
+    );
   }
 }
