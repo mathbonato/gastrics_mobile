@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class CylinderController {
     Future<List<Cylinder>> getCylinders(String companyId, String branchId) async {
-        Uri route = prepareUrl("/$companyId/branch/$branchId/cylinder");
+        Uri route = prepareUrl("/company/$companyId/branch/$branchId/cylinder");
         var response = await http.get(route);
 
         if (response.statusCode != 200) {
@@ -25,7 +25,7 @@ class CylinderController {
     }
 
     Future<Cylinder?> getCylinder(String companyId, String branchId, String cylinderId) async {
-      Uri route = prepareUrl("/$companyId/branch/$branchId/cylinder?id=$cylinderId");
+      Uri route = prepareUrl("/company/$companyId/branch/$branchId/cylinder?id=$cylinderId");
       var response = await http.get(route);
 
       if (response.statusCode != 200) {
@@ -40,7 +40,7 @@ class CylinderController {
     }
 
     Future<Cylinder?> postCylinder(String companyId, String branchId, Cylinder cylinder) async {
-      Uri route = prepareUrl("/$companyId/branch/$branchId/cylinder");
+      Uri route = prepareUrl("/company/$companyId/branch/$branchId/cylinder");
       var response = await http.post(route, body: cylinder);
 
       if (response.statusCode != 201) {
@@ -55,7 +55,7 @@ class CylinderController {
     }
 
     Future<Cylinder?> updateCylinder(String companyId, String branchId, Cylinder cylinder) async {
-      Uri route = prepareUrl("/$companyId/branch/$branchId/cylinder");
+      Uri route = prepareUrl("/company/$companyId/branch/$branchId/cylinder");
       var response = await http.put(route, body: cylinder);
 
       if (response.statusCode != 200) {
@@ -72,7 +72,7 @@ class CylinderController {
     Future<bool> deleteCylinder(String companyId, String branchId, Cylinder cylinder) async {
       var cylinderId = cylinder.id;
 
-      Uri route = prepareUrl("/$companyId/branch/$branchId/cylinder?id=$cylinderId");
+      Uri route = prepareUrl("/company/$companyId/branch/$branchId/cylinder?id=$cylinderId");
       var response = await http.delete(route);
 
       if (response.statusCode != 200) {

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class EmployeeController {
     Future<List<Employee>> getEmployees(String companyId) async {
-        Uri route = prepareUrl("/$companyId/employee");
+        Uri route = prepareUrl("/company/$companyId/employee");
         var response = await http.get(route);
 
         if (response.statusCode != 200) {
@@ -25,7 +25,7 @@ class EmployeeController {
     }
 
     Future<Employee?> getEmployee(String companyId, String employeeId) async {
-      Uri route = prepareUrl("/$companyId/employee?id=$employeeId");
+      Uri route = prepareUrl("/company/$companyId/employee?id=$employeeId");
       var response = await http.get(route);
 
       if (response.statusCode != 200) {
@@ -40,7 +40,7 @@ class EmployeeController {
     }
 
     Future<Employee?> postEmployee(String companyId, Employee employee) async {
-      Uri route = prepareUrl("/$companyId/employee");
+      Uri route = prepareUrl("/company/$companyId/employee");
       var response = await http.post(route, body: employee);
 
       if (response.statusCode != 201) {
@@ -55,7 +55,7 @@ class EmployeeController {
     }
 
     Future<Employee?> updateEmployee(String companyId, Employee employee) async {
-      Uri route = prepareUrl("/$companyId/employee");
+      Uri route = prepareUrl("/company/$companyId/employee");
       var response = await http.put(route, body: employee);
 
       if (response.statusCode != 200) {
@@ -72,7 +72,7 @@ class EmployeeController {
     Future<bool> deleteEmployee(String companyId, Employee employee) async {
       var employeeId = employee.id;
 
-      Uri route = prepareUrl("/$companyId/employee?id=$employeeId");
+      Uri route = prepareUrl("/company/$companyId/employee?id=$employeeId");
       var response = await http.delete(route);
 
       if (response.statusCode != 200) {

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class BranchController {
     Future<List<Branch>> getBranches(String companyId) async {
-        Uri route = prepareUrl("/$companyId/branch");
+        Uri route = prepareUrl("/company/$companyId/branch");
         var response = await http.get(route);
 
         if (response.statusCode != 200) {
@@ -25,7 +25,7 @@ class BranchController {
     }
 
     Future<Branch?> getBranch(String companyId, String branchId) async {
-      Uri route = prepareUrl("/$companyId/branch?id=$branchId");
+      Uri route = prepareUrl("/company/$companyId/branch?id=$branchId");
       var response = await http.get(route);
 
       if (response.statusCode != 200) {
@@ -40,7 +40,7 @@ class BranchController {
     }
 
     Future<Branch?> postBranch(String companyId, Branch branch) async {
-      Uri route = prepareUrl("/$companyId/branch");
+      Uri route = prepareUrl("/company/$companyId/branch");
       var response = await http.post(route, body: branch);
 
       if (response.statusCode != 201) {
@@ -55,7 +55,7 @@ class BranchController {
     }
 
     Future<Branch?> updateBranch(String companyId, Branch branch) async {
-      Uri route = prepareUrl("/$companyId/branch");
+      Uri route = prepareUrl("/company/$companyId/branch");
       var response = await http.put(route, body: branch);
 
       if (response.statusCode != 200) {
@@ -72,7 +72,7 @@ class BranchController {
     Future<bool> deleteBranch(String companyId, Branch branch) async {
       var branchId = branch.id;
 
-      Uri route = prepareUrl("/$companyId/branch?id=$branchId");
+      Uri route = prepareUrl("/company/$companyId/branch?id=$branchId");
       var response = await http.delete(route);
 
       if (response.statusCode != 200) {
