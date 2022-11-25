@@ -20,6 +20,8 @@ class BranchList extends StatefulWidget {
 
 class _BranchListState extends State<BranchList> {
   final branchController = BranchController();
+  final userInfo = globals.loginResponse;
+  final isOwner = globals.loginResponse!.employee!.type == "owner";
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +32,17 @@ class _BranchListState extends State<BranchList> {
             backgroundColor: AppColors.primary,
             title: const Center(child: Text("Gastrics")),
             actions: notificationBell()),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Get.to(const BranchCreate());
-          },
-          backgroundColor: AppColors.primary,
-          child: const Icon(Icons.add),
-        ),
+            floatingActionButton: isOwner
+              ? FloatingActionButton(
+                  onPressed: () {
+                    Get.to(const BranchCreate());
+                  },
+                  backgroundColor: AppColors.primary,
+                  child: const Icon(Icons.add),
+                )
+              : const SizedBox(),
         body: FutureBuilder(
-          future: branchController.getBranches(globals.loginResponse!.employee!.company!.id),
+          future: branchController.getBranches(userInfo!.employee!.company!.id),
           builder: (BuildContext context, AsyncSnapshot<List<Branch>> snapshot) {
             List<Branch> branches = [];
 
@@ -73,7 +77,7 @@ class _BranchListState extends State<BranchList> {
                         title: branches[index].name,
                         subtitle: branches[index].address,
                         img: branches[index].img,
-                        editIcon: true,
+                        editIcon: isOwner,
                         editAction: () {},
                         onCardClick: () => {
                           Get.to(RecipientPage(branch: branches[index])),
