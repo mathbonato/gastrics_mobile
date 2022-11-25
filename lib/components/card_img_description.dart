@@ -29,7 +29,6 @@ class CardImgDescription extends StatefulWidget {
 class _CardImgDescription extends State<CardImgDescription> {
   @override
   Widget build(BuildContext context) {
-    double screenWidthSize = MediaQuery.of(context).size.width;
 
     return InkWell(
       onTap: () => widget.onCardClick!(),

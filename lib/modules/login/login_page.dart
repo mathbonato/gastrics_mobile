@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:glp_manager_mobile/controllers/LoginController.dart';
 import 'package:glp_manager_mobile/modules/dashboard/dashboard_page.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
-import '../../components/already_have_an_account_acheck.dart';
 import '../../components/rounded_button.dart';
 import '../../components/rounded_input_field.dart';
 import '../../components/rounded_password_field.dart';
@@ -16,6 +17,50 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  LoginController loginController = LoginController();
+  TextEditingController email = TextEditingController();
+  TextEditingController pass = TextEditingController();
+  TextEditingController alert = TextEditingController();
+
+  onChangeEmail(String emailChanged) {
+    email.text = emailChanged;
+  }
+
+  onChangePass(String passChanged) {
+    pass.text = passChanged;
+  }
+
+  Future login() async {
+    if(email.text == "") {
+      alert.text = "Email é obrigatório !";
+    }
+    else if(pass.text == "") {
+      alert.text = "Senha é obrigatória !";
+    }
+    else {
+      var result = await loginController.login(email.text, pass.text);
+
+      if(result != null) {
+        Get.to(const DashboardPage());
+        return null;
+      }
+      else {
+        alert.text = "Email ou senha incorretos !";
+      }
+    }
+
+    if (alert.text != "") {
+      Fluttertoast.showToast(
+        msg: alert.text,
+        toastLength: Toast.LENGTH_SHORT,
+        timeInSecForIosWeb: 5,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -41,19 +86,23 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: size.height * 0.03),
                   RoundedInputField(
                     hintText: "Email",
-                    onChanged: (value) {},
+                    onChanged: onChangeEmail,
                   ),
                   RoundedPasswordField(
-                    onChanged: (value) {},
+                    onChanged: onChangePass,
                   ),
                   RoundedButton(
-                    text: "LOGIN",
-                    press: () => Get.to(const DashboardPage()),
+                    text: "Login",
+                    press: login,
                   ),
-                  //   SizedBox(height: size.height * 0.03),
-                  AlreadyHaveAnAccountCheck(
-                    press: () {},
-                  ),
+                  alert.text == "" 
+                    ? Text(
+                        alert.text,
+                        style: TextStyle(
+                          color: Colors.red[500],
+                        ),
+                      )
+                    : const SizedBox()
                 ],
               ),
             ),

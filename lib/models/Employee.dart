@@ -10,12 +10,14 @@ class Employee {
   Employee(this.id, this.name, this.lastName, this.type, this.birth, this.cpf, this.email);
 
   factory Employee.fromJson(dynamic json) {
+    DateTime birth = DateTime.parse(json['birth']);
+    
     return Employee(
       json['id'] as String,
       json['name'] as String,
       json['lastName'] as String,
       json['type'] as String,
-      json['birth'] as DateTime,
+      birth,
       json['cpf'] as String,
       json['email'] as String,
     );
