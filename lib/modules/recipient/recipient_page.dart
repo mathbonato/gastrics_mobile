@@ -809,7 +809,7 @@ class _RecipientPageState extends State<RecipientPage> {
             ),
             child: HeaderImgDescription(
               title: branch.name,
-              subtitle: branch.street,
+              subtitle: branch.address,
               img: branch.img,
               iconOneRef: Icons.article,
               iconTwoRef: Icons.people,

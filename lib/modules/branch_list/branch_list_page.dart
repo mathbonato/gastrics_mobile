@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glp_manager_mobile/components/card_img_description.dart';
-import 'package:glp_manager_mobile/mock/BranchGenerator.dart';
+import 'package:glp_manager_mobile/controllers/BranchController.dart';
 import 'package:glp_manager_mobile/models/Branch.dart';
 import 'package:glp_manager_mobile/modules/branch_create/branch_create_page.dart';
 import 'package:glp_manager_mobile/modules/drawer/drawer.dart';
@@ -18,7 +18,7 @@ class BranchList extends StatefulWidget {
 }
 
 class _BranchListState extends State<BranchList> {
-  final List<Branch> branches = BranchGenerator().getBranches();
+  final branchController = BranchController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,16 @@ class _BranchListState extends State<BranchList> {
           backgroundColor: AppColors.primary,
           child: const Icon(Icons.add),
         ),
-        body: Container(
-          child: Column(
+        body: FutureBuilder(
+          future: branchController.getBranches('a0528e29-9f9f-4fcc-a1fe-a7a5a1abf58b'),
+          builder: (BuildContext context, AsyncSnapshot<List<Branch>> snapshot) {
+            List<Branch> branches = [];
+
+            if(snapshot.hasData) {
+              branches = snapshot.data!;
+            }
+
+            return Column(
             children: <Widget>[
               Container(
                 height: 80,
@@ -63,7 +71,7 @@ class _BranchListState extends State<BranchList> {
                   itemBuilder: (BuildContext context, int index) {
                     return CardImgDescription(
                       title: branches[index].name,
-                      subtitle: branches[index].street,
+                      subtitle: branches[index].address,
                       img: branches[index].img,
                       editIcon: true,
                       editAction: () {},
@@ -77,7 +85,8 @@ class _BranchListState extends State<BranchList> {
                 ),
               ))
             ],
-          ),
+          );
+          },
         ));
   }
 }

@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: AppColors.background,
       appBar: AppBar(
           backgroundColor: AppColors.primary, title: const Text("Gastrics")),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: size.height,
         child: Stack(
@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   RoundedButton(
                     text: "LOGIN",
-                    press: () => Get.to(DashboardPage()),
+                    press: () => Get.to(const DashboardPage()),
                   ),
                   //   SizedBox(height: size.height * 0.03),
                   AlreadyHaveAnAccountCheck(
