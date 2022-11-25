@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:glp_manager_mobile/controllers/LoginController.dart';
 import 'package:glp_manager_mobile/modules/dashboard/dashboard_page.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
+import 'package:glp_manager_mobile/models/my-globals.dart' as globals;
 
 import '../../components/rounded_button.dart';
 import '../../components/rounded_input_field.dart';
@@ -41,8 +42,9 @@ class _LoginPageState extends State<LoginPage> {
       var result = await loginController.login(email.text, pass.text);
 
       if(result != null) {
+        globals.loginResponse = result;
         Get.to(const DashboardPage());
-        return null;
+        alert.text = "";
       }
       else {
         alert.text = "Email ou senha incorretos !";
@@ -95,14 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                     text: "Login",
                     press: login,
                   ),
-                  alert.text == "" 
-                    ? Text(
-                        alert.text,
-                        style: TextStyle(
-                          color: Colors.red[500],
-                        ),
-                      )
-                    : const SizedBox()
                 ],
               ),
             ),
