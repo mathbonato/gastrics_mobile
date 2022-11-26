@@ -21,7 +21,7 @@ class BranchList extends StatefulWidget {
 class _BranchListState extends State<BranchList> {
   final branchController = BranchController();
   final userInfo = globals.loginResponse;
-  final isOwner = globals.loginResponse!.employee!.type == "owner";
+  final isOwner = globals.isOwner;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,9 @@ class _BranchListState extends State<BranchList> {
                         subtitle: branches[index].address,
                         img: branches[index].img,
                         editIcon: isOwner,
-                        editAction: () {},
+                        editAction: () {
+                          Get.to(BranchCreate(branchToUpdate: branches[index]));
+                        },
                         onCardClick: () => {
                           Get.to(RecipientPage(branch: branches[index])),
                         },

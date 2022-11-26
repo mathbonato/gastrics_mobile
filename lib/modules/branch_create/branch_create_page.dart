@@ -12,7 +12,12 @@ import 'package:glp_manager_mobile/models/my-globals.dart' as globals;
 
 
 class BranchCreate extends StatefulWidget {
-  const BranchCreate({Key? key}) : super(key: key);
+  const BranchCreate({
+    Key? key,
+    this.branchToUpdate
+  }) : super(key: key);
+
+  final Branch? branchToUpdate;
 
   @override
   State<BranchCreate> createState() => _BranchCreateState();
@@ -25,6 +30,11 @@ class _BranchCreateState extends State<BranchCreate> {
   TextEditingController address = TextEditingController();
   TextEditingController alert = TextEditingController();
 
+  initValue(Branch branch) {
+    name.text = branch.name;
+    address.text = branch.address;
+  }
+
   onChangeName(String value) {
     name.text = value;
   }
@@ -33,7 +43,8 @@ class _BranchCreateState extends State<BranchCreate> {
     address.text = value;
   }
 
-  Future createBranch() async {
+  Future handleBranch(Branch? branchToWork) async {
+    bool update = branchToWork != null;
     if(name.text == "") {
       alert.text = "Nome é obrigatório !";
     }
@@ -41,24 +52,16 @@ class _BranchCreateState extends State<BranchCreate> {
       alert.text = "Endereço é obrigatório !";
     }
     else {
-      Branch branch = Branch(
-        "",
-        name.text,
-        address.text,
-        []
-      );
-
-      var result = await branchController.postBranch(
-        globals.company!.id,
-        branch
-      );
+      Branch? result = update
+        ? await updateBranch(branchToWork)
+        : await createBranch();
 
       if(result != null) {
         alert.text = "";
         Get.to(const BranchList());
       }
       else {
-        alert.text = "Erro ao cadastrar";
+        alert.text = "Erro ao ${update? "atualizar" : "cadastrar"}";
       }
     }
 
@@ -74,8 +77,47 @@ class _BranchCreateState extends State<BranchCreate> {
     }
   }
 
+  Future<Branch?> updateBranch(Branch branchToWork) async {
+    Branch branch = Branch(
+      branchToWork.id,
+      name.text,
+      address.text,
+      [],
+    );
+
+    var result = await branchController.updateBranch(
+      globals.company!.id,
+      branch
+    );
+
+    return result;
+  }
+
+  Future<Branch?> createBranch() async {
+    Branch branch = Branch(
+      "",
+      name.text,
+      address.text,
+      []
+    );
+
+    var result = await branchController.postBranch(
+      globals.company!.id,
+      branch
+    );
+
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
+    var branchToUpdate = widget.branchToUpdate;
+    var hasBranchInfo = branchToUpdate != null; 
+
+    if (hasBranchInfo) {
+      initValue(branchToUpdate);
+    }
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -103,15 +145,19 @@ class _BranchCreateState extends State<BranchCreate> {
                 RoundedInputField(
                   hintText: "Nome",
                   onChanged: onChangeName,
+                  initialValue: hasBranchInfo ? branchToUpdate.name : "",
                 ),
                 RoundedInputField(
                   icon: Icons.description,
                   hintText: "Endereço",
                   onChanged: onChangeAddress,
+                  initialValue: hasBranchInfo ? branchToUpdate.address : "",
                 ),
                 RoundedButton(
-                  text: "CRIAR",
-                  press: createBranch,
+                  text: hasBranchInfo ? "Atualizar" : "Criar",
+                  press: () {
+                    handleBranch(branchToUpdate);
+                  },
                 ),
               ],
             ),

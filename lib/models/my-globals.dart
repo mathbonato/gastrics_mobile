@@ -10,3 +10,4 @@ String? currentBranchId;
 String? token;
 Employee? employee;
 String? employeeType;
+bool isOwner = false;

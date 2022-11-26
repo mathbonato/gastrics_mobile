@@ -69,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
     globals.employee = loginResponse.employee;
     globals.company = loginResponse.employee!.company;
     globals.token = loginResponse.token;
+    globals.isOwner = loginResponse.employee!.type == "owner";
   }
 
   @override
