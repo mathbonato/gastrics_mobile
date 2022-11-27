@@ -7,9 +7,12 @@ import 'package:glp_manager_mobile/components/header_img_description.dart';
 import 'package:glp_manager_mobile/components/notification_bell.dart';
 import 'package:glp_manager_mobile/components/searcher.dart';
 import 'package:glp_manager_mobile/models/Branch.dart';
+import 'package:glp_manager_mobile/models/Cylinder.dart';
 import 'package:glp_manager_mobile/models/Receipt.dart';
 import 'package:glp_manager_mobile/models/User.dart';
 import 'package:glp_manager_mobile/mock/UserGenerator.dart';
+import 'package:glp_manager_mobile/modules/cylinder_list/cylinder_list.dart';
+import 'package:glp_manager_mobile/modules/cylinder_save/cylinder_save.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:glp_manager_mobile/components/progress_line.dart';
@@ -38,7 +41,7 @@ class Controller extends GetxController {
 }
 
 class _RecipientPageState extends State<RecipientPage> {
-  String selectedIcon = 'one';
+  String selectedIcon = 'cylinder';
   TextEditingController name = TextEditingController();
   TextEditingController peso = TextEditingController();
   TextEditingController casco = TextEditingController();
@@ -53,7 +56,7 @@ class _RecipientPageState extends State<RecipientPage> {
   userControl(String icon, Branch branch) {
     userQuery = allUsers;
 
-    if (icon == "two") {
+    if (icon == "employee") {
       return StatefulBuilder(
           builder: (BuildContext context, StateSetter modalState) {
         return Column(
@@ -319,7 +322,7 @@ class _RecipientPageState extends State<RecipientPage> {
 
   selectedIconChange(String iconName, Branch branch, List<Receipt> canisters,
       List<User> users) {
-    if (iconName == "one") {
+    if (iconName == "cylinder") {
       return Expanded(
         child: Container(
           margin: const EdgeInsets.only(top: 40.0),
@@ -479,7 +482,7 @@ class _RecipientPageState extends State<RecipientPage> {
   }
 
   openUserAttach(Branch branch) {
-    String userIcon = 'one';
+    String userIcon = 'cylinder';
     userQuery = UserGenerator().getUsers();
     showCupertinoModalBottomSheet(
       context: context,
@@ -514,7 +517,7 @@ class _RecipientPageState extends State<RecipientPage> {
                           onPressed: () {
                             setState(() {
                               modalState(() {
-                                userIcon = "one";
+                                userIcon = "cylinder";
                               });
                             });
                           },
@@ -528,7 +531,7 @@ class _RecipientPageState extends State<RecipientPage> {
                           onPressed: () {
                             setState(() {
                               modalState(() {
-                                userIcon = "two";
+                                userIcon = "employee";
                               });
                             });
                           },
@@ -661,114 +664,12 @@ class _RecipientPageState extends State<RecipientPage> {
     );
   }
 
-  openCanisterCreator() {
-    casco.text = '';
-    peso.text = '';
-    name.text = '';
-    desc.text = '';
-
+  openCylinderCreator(Cylinder? cylinder) {
     showCupertinoModalBottomSheet(
       context: context,
       builder: (context) => SizedBox(
         height: MediaQuery.of(context).size.height * 0.7,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Form(
-              child: Column(children: <Widget>[
-                const Text(
-                  "Criar Recipiente",
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                Material(
-                  child: TextFormField(
-                    controller: name,
-                    decoration: InputDecoration(
-                      labelText: "Nome",
-                      labelStyle: const TextStyle(
-                        color: Colors.black,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: AppColors.primary,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.all(10)),
-                Material(
-                  child: TextFormField(
-                    controller: peso,
-                    decoration: InputDecoration(
-                      labelText: "Capacidade máxima",
-                      labelStyle: const TextStyle(
-                        color: Colors.black,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: AppColors.primary,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.all(10)),
-                Material(
-                  child: TextFormField(
-                    controller: casco,
-                    decoration: InputDecoration(
-                      labelText: "Peso do recipiente vazio",
-                      labelStyle: const TextStyle(
-                        color: Colors.black,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: AppColors.primary,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.all(15)),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: AppColors.primary),
-                  onPressed: () {
-                    Receipt gas = Receipt();
-                    gas.name = name.text;
-                    gas.totalWeight = double.parse(peso.text);
-                    gas.gasHullWeight = double.parse(casco.text);
-                    gas.img =
-                        "https://a-static.mlcdn.com.br/1500x1500/botijao-de-gas-13kg-liquigas/doisirmaosdistribuidora/d1a9bcc2593111ec9a154201ac18503a/8e2690349b445e82c17437d629fa10a0.jpg";
-                    setState(() {
-                      widget.branch.canisters.add(gas);
-                      name.text = "";
-                      peso.text = "";
-                      casco.text = "";
-                    });
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    "Criar",
-                    style: TextStyle(
-                        color: Colors.white, decoration: TextDecoration.none),
-                  ),
-                )
-              ]),
-            ),
-          ),
-        ),
+        child: CylinderSave(cylinder: cylinder,)
       ),
     );
   }
@@ -777,6 +678,7 @@ class _RecipientPageState extends State<RecipientPage> {
   Widget build(BuildContext context) {
     Branch branch = widget.branch;
     List<Receipt> canisters = branch.canisters;
+    List<Cylinder> cylinders = branch.cylinders;
     List<User> users = branch.users;
 
     return Scaffold(
@@ -789,8 +691,8 @@ class _RecipientPageState extends State<RecipientPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (selectedIcon == 'one') {
-            openCanisterCreator();
+          if (selectedIcon == 'cylinder') {
+            openCylinderCreator(null);
           } else {
             openUserAttach(branch);
           }
@@ -819,12 +721,12 @@ class _RecipientPageState extends State<RecipientPage> {
               iconTwoName: 'Usuários',
               iconOneAction: () {
                 setState(() {
-                  selectedIcon = 'one';
+                  selectedIcon = 'cylinder';
                 });
               },
               iconTwoAction: () {
                 setState(() {
-                  selectedIcon = 'two';
+                  selectedIcon = 'employee';
                 });
               },
             ),
@@ -834,12 +736,12 @@ class _RecipientPageState extends State<RecipientPage> {
               left: 20,
               right: 20,
             ),
-            child: const Searcher(
-              pleaceHolder: 'Procurar recipientes',
-              title: 'recipientes',
+            child: Searcher(
+              pleaceHolder: selectedIcon == 'cylinder' ? "Procurar recipientes" : "Procurar empregado",
+              title: selectedIcon == 'cylinder' ? "Recipientes" : "Empregados",
             ),
           ),
-          selectedIconChange(selectedIcon, branch, canisters, users),
+          CylinderList(cylinders: cylinders),
         ],
       ),
     );
