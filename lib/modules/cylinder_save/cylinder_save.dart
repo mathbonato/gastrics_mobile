@@ -10,9 +10,11 @@ class CylinderSave extends StatefulWidget {
   const CylinderSave({
     Key? key,
     this.cylinder,
+    this.actionOnFinish,
   }) : super(key: key);
 
   final Cylinder? cylinder;
+  final Function? actionOnFinish;
 
   @override
   State<CylinderSave> createState() => _CylinderSave();
@@ -51,7 +53,7 @@ class _CylinderSave extends State<CylinderSave> {
     gasType.text = cylinder.gasType;
   }
 
-  Future handleCylinder(Cylinder? cylinderToWork) async {
+  Future handleCylinder(Cylinder? cylinderToWork, Function? actionOnFinish) async {
     bool update = cylinderToWork != null;
     if(name.text == "") {
       alert.text = "Nome é obrigatório !";
@@ -69,7 +71,12 @@ class _CylinderSave extends State<CylinderSave> {
 
       if(result != null) {
         alert.text = "";
-        // Get.to(const CylinderList());
+
+        if (actionOnFinish != null) {
+          actionOnFinish();
+        }
+
+        Navigator.pop(context);
       }
       else {
         alert.text = "Erro ao ${update? "atualizar" : "cadastrar"}";
@@ -175,7 +182,7 @@ class _CylinderSave extends State<CylinderSave> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
                 onPressed: () {
-                  handleCylinder(cylinder);
+                  handleCylinder(cylinder, widget.actionOnFinish);
                 },
                 child: Text(
                   hasCylinderInfo ? "Atualizar" : "Criar",
