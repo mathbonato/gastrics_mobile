@@ -100,7 +100,7 @@ class _CylinderSave extends State<CylinderSave> {
       cylinderToWork.id,
       cylinderToWork.exId,
       name.text,
-      "",
+      gasType.text,
       type.text,
       0.0,
     );
