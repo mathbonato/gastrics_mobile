@@ -82,6 +82,7 @@ class _BranchListState extends State<BranchList> {
                           Get.to(() => BranchCreate(branchToUpdate: branches[index]));
                         },
                         onCardClick: () => {
+                          globals.currentBranchId = branches[index].id,
                           Get.to(() => RecipientPage(branch: branches[index])),
                         },
                       );
