@@ -8,15 +8,16 @@ class LoginEmployee extends Employee {
 
   factory LoginEmployee.fromJson(dynamic json) {
     Company company = Company.fromJson(json['company']);
+    DateTime birth = DateTime.parse(json['birth']);
 
     return LoginEmployee(
-      json['id'],
-      json['name'],
-      json['lastName'],
-      json['type'],
-      json['birth'],
-      json['cpf'],
-      json['email'],
+      json['id'] as String,
+      json['name'] as String,
+      json['lastName'] as String,
+      json['type'] as String,
+      birth,
+      json['cpf'] as String,
+      json['email'] as String,
       company
     );
   }

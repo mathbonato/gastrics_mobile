@@ -40,8 +40,14 @@ class BranchController {
     }
 
     Future<Branch?> postBranch(String companyId, Branch branch) async {
+      Map branchData = {
+        'name': branch.name,
+        'address': branch.address,
+      };
+      var bodyData = jsonEncode(branchData);
+
       Uri route = prepareUrl("/company/$companyId/branch");
-      var response = await http.post(route, body: branch);
+      var response = await http.post(route, body: bodyData, headers: {"Content-Type": "application/json"});
 
       if (response.statusCode != 201) {
         return null;
@@ -55,8 +61,15 @@ class BranchController {
     }
 
     Future<Branch?> updateBranch(String companyId, Branch branch) async {
+      Map branchData = {
+        'id': branch.id,
+        'name': branch.name,
+        'address': branch.address,
+      };
+      var bodyData = jsonEncode(branchData);
+
       Uri route = prepareUrl("/company/$companyId/branch");
-      var response = await http.put(route, body: branch);
+      var response = await http.put(route, body: bodyData, headers: {"Content-Type": "application/json"});
 
       if (response.statusCode != 200) {
         return null;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:glp_manager_mobile/controllers/LoginController.dart';
+import 'package:glp_manager_mobile/models/LoginResponse.dart';
 import 'package:glp_manager_mobile/modules/dashboard/dashboard_page.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 import 'package:glp_manager_mobile/models/my-globals.dart' as globals;
@@ -42,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
       var result = await loginController.login(email.text, pass.text);
 
       if(result != null) {
-        globals.loginResponse = result;
+        setGlobals(result);
         Get.to(const DashboardPage());
         alert.text = "";
       }
@@ -61,6 +62,14 @@ class _LoginPageState extends State<LoginPage> {
         fontSize: 16.0,
       );
     }
+  }
+
+  setGlobals(LoginResponse loginResponse) {
+    globals.loginResponse = loginResponse;
+    globals.employee = loginResponse.employee;
+    globals.company = loginResponse.employee!.company;
+    globals.token = loginResponse.token;
+    globals.isOwner = loginResponse.employee!.type == "owner";
   }
 
   @override
