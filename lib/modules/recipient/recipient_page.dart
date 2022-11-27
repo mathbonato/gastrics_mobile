@@ -53,6 +53,8 @@ class _RecipientPageState extends State<RecipientPage> {
   List<User> allUsers = UserGenerator().userGenerate();
   List<User> userQuery = UserGenerator().getUsers();
 
+  TextEditingController serchText = TextEditingController();
+
   userControl(String icon, Branch branch) {
     userQuery = allUsers;
 
@@ -744,9 +746,13 @@ class _RecipientPageState extends State<RecipientPage> {
             child: Searcher(
               pleaceHolder: selectedIcon == 'cylinder' ? "Procurar recipientes" : "Procurar empregado",
               title: selectedIcon == 'cylinder' ? "Recipientes" : "Empregados",
+              onChange: (value) {
+                serchText.text = value;
+                setState(() {});
+              },
             ),
           ),
-          CylinderList(cylinders: cylinders),
+          CylinderList(cylinders: cylinders, filter: serchText.text,),
         ],
       ),
     );

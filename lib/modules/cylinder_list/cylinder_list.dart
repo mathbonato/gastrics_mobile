@@ -10,9 +10,11 @@ class CylinderList extends StatefulWidget {
   const CylinderList({
     Key? key,
     required this.cylinders,
+    this.filter,
   }) : super(key: key);
 
   final List<Cylinder> cylinders;
+  final String? filter;
 
   @override
   State<CylinderList> createState() => _CylinderList();
@@ -40,6 +42,7 @@ class _CylinderList extends State<CylinderList> {
   Widget build(BuildContext context) {
     CylinderController cylinderController = CylinderController();
     branchId.text = globals.currentBranchId;
+    String? filter = widget.filter;
     
     
     return FutureBuilder(
@@ -49,6 +52,13 @@ class _CylinderList extends State<CylinderList> {
 
         if(snapshot.hasData) {
           cylinders = snapshot.data!;
+        }
+
+        if (filter != null && filter != "") {
+          cylinders.retainWhere(
+            (element) => element.name.toLowerCase().contains(filter.toLowerCase()) 
+                      || element.type.toLowerCase().contains(filter.toLowerCase())
+          );
         }
 
         return Expanded(

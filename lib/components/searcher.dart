@@ -21,7 +21,11 @@ class _Searcher extends State<Searcher> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      obscureText: true,
+      onChanged: (value) => {
+        if(widget.onChange != null) {
+          widget.onChange!(value)
+        }
+      },
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.grey.shade200,
