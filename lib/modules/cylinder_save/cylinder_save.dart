@@ -24,6 +24,8 @@ class _CylinderSave extends State<CylinderSave> {
   TextEditingController exId = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController type = TextEditingController();
+  TextEditingController gasType = TextEditingController();
+
   TextEditingController alert = TextEditingController();
 
   onChangeExId(String value) {
@@ -38,10 +40,15 @@ class _CylinderSave extends State<CylinderSave> {
     type.text = value;
   }
 
+  onChangeGasType(String value) {
+    gasType.text = value;
+  }
+
   initValue(Cylinder cylinder) {
     exId.text = cylinder.exId;
     name.text = cylinder.name;
     type.text = cylinder.type;
+    gasType.text = cylinder.gasType;
   }
 
   Future handleCylinder(Cylinder? cylinderToWork) async {
@@ -157,6 +164,12 @@ class _CylinderSave extends State<CylinderSave> {
                 label: "Nome",
                 onChange: onChangeName,
                 initialValue: hasCylinderInfo ? cylinder.name : "",
+              ),
+              const Padding(padding: EdgeInsets.all(15)),
+              CuppertinoInput(
+                label: "Tipo do gás",
+                onChange: onChangeGasType,
+                initialValue: hasCylinderInfo ? cylinder.gasType : "",
               ),
               const Padding(padding: EdgeInsets.all(15)),
               ElevatedButton(
