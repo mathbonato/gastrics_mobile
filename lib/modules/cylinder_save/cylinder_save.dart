@@ -120,7 +120,7 @@ class _CylinderSave extends State<CylinderSave> {
       "",
       exId.text,
       name.text,
-      "",
+      gasType.text,
       type.text,
       0.0,
     );
@@ -138,8 +138,9 @@ class _CylinderSave extends State<CylinderSave> {
   Widget build(BuildContext context) {
     Cylinder? cylinder = widget.cylinder;
     bool hasCylinderInfo = cylinder != null;
+    bool isEmpty = !(exId.text != "" || name.text != "" || type.text != "" || gasType.text != "");
 
-    if (hasCylinderInfo) {
+    if (hasCylinderInfo && isEmpty) {
       initValue(cylinder);
     }
 
@@ -162,7 +163,7 @@ class _CylinderSave extends State<CylinderSave> {
                 ? CuppertinoInput(
                   label: "Id externo",
                   onChange: onChangeExId,
-                  initialValue: hasCylinderInfo ? cylinder.exId : "",
+                  initialValue: exId.text,
                 )
                 : const SizedBox(),
               !hasCylinderInfo 
@@ -171,17 +172,17 @@ class _CylinderSave extends State<CylinderSave> {
               CuppertinoInput(
                 label: "Nome",
                 onChange: onChangeName,
-                initialValue: hasCylinderInfo ? cylinder.name : "",
+                initialValue: name.text,
               ),
               const Padding(padding: EdgeInsets.all(15)),
               CuppertinoInput(
                 label: "Tipo do gás",
                 onChange: onChangeGasType,
-                initialValue: hasCylinderInfo ? cylinder.gasType : "",
+                initialValue: gasType.text,
               ),
               const Padding(padding: EdgeInsets.all(15)),
               CuppertinoListInput(
-                initialValue: hasCylinderInfo ? cylinder.type : "",
+                initialValue: type.text,
                 items: [
                   ListItem("P13", "p13"),
                   ListItem("P20 - 3 valvulas", "p20v3"),

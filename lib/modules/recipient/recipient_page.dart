@@ -669,7 +669,12 @@ class _RecipientPageState extends State<RecipientPage> {
       context: context,
       builder: (context) => SizedBox(
         height: MediaQuery.of(context).size.height * 0.7,
-        child: CylinderSave(cylinder: cylinder,)
+        child: CylinderSave(
+          cylinder: cylinder,
+          actionOnFinish: () {
+            setState(() {});
+          },
+        ),
       ),
     );
   }

@@ -41,7 +41,6 @@ class CylinderController {
 
     Future<Cylinder?> postCylinder(String companyId, String branchId, Cylinder cylinder) async {
       Map cylinderData = {
-        'id': cylinder.id,
         'exId': cylinder.exId,
         'name': cylinder.name,
         'gasType': cylinder.gasType,
