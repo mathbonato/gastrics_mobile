@@ -35,7 +35,7 @@ class _BranchListState extends State<BranchList> {
             floatingActionButton: isOwner
               ? FloatingActionButton(
                   onPressed: () {
-                    Get.to(const BranchCreate());
+                    Get.to(() => const BranchCreate());
                   },
                   backgroundColor: AppColors.primary,
                   child: const Icon(Icons.add),
@@ -79,10 +79,11 @@ class _BranchListState extends State<BranchList> {
                         img: branches[index].img,
                         editIcon: isOwner,
                         editAction: () {
-                          Get.to(BranchCreate(branchToUpdate: branches[index]));
+                          Get.to(() => BranchCreate(branchToUpdate: branches[index]));
                         },
                         onCardClick: () => {
-                          Get.to(RecipientPage(branch: branches[index])),
+                          globals.currentBranchId = branches[index].id,
+                          Get.to(() => RecipientPage(branch: branches[index])),
                         },
                       );
                     },
