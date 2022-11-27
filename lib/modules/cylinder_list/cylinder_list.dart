@@ -21,8 +21,8 @@ class CylinderList extends StatefulWidget {
 }
 
 class _CylinderList extends State<CylinderList> {
+  CylinderController cylinderController = CylinderController();
   TextEditingController branchId = TextEditingController();
-
 
   actionOnUpdate() {
     setState(() {});
@@ -36,6 +36,16 @@ class _CylinderList extends State<CylinderList> {
         child: CylinderSave(cylinder: cylinder, actionOnFinish: actionOnUpdate)
       ),
     );
+  }
+
+  Future removeCylinder(Cylinder cylinder) async {
+    await cylinderController.deleteCylinder(
+      globals.company!.id,
+      globals.currentBranchId,
+      cylinder,
+    );
+    
+    actionOnUpdate();
   }
 
   @override
@@ -83,11 +93,7 @@ class _CylinderList extends State<CylinderList> {
                   removeIcon: true,
                   onCardClick: () => {},
                   editAction: () => openCylinderEditor(cylinder),
-                  removeAction: () {
-                    setState(
-                      () {},
-                    );
-                  },
+                  removeAction: () => removeCylinder(cylinder),
                 );
               },
               separatorBuilder: (BuildContext context, int index) {
