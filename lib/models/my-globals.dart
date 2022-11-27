@@ -6,7 +6,7 @@ import 'package:glp_manager_mobile/models/LoginResponse.dart';
 
 LoginResponse? loginResponse;
 Company? company;
-String? currentBranchId;
+String currentBranchId = "";
 String? token;
 Employee? employee;
 String? employeeType;
