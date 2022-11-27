@@ -9,7 +9,7 @@ class Cylinder {
   Cylinder(this.id, this.exId, this.name, this.gasType,  this.type, this.weightShell);
 
   factory Cylinder.fromJson(dynamic json) {
-    double weight = json['weightShell'] == 0 ? 0.0 : json['weightShell'];
+    double weight = json['weightShell'] + .0;
 
     return Cylinder(
       json['id'] as String,
