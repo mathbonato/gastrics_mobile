@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:glp_manager_mobile/components/cuppentino_input.dart';
+import 'package:glp_manager_mobile/components/cuppertino_list_input.dart';
 import 'package:glp_manager_mobile/controllers/CylinderController.dart';
 import 'package:glp_manager_mobile/models/Cylinder.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
@@ -177,6 +178,17 @@ class _CylinderSave extends State<CylinderSave> {
                 label: "Tipo do gás",
                 onChange: onChangeGasType,
                 initialValue: hasCylinderInfo ? cylinder.gasType : "",
+              ),
+              const Padding(padding: EdgeInsets.all(15)),
+              CuppertinoListInput(
+                initialValue: hasCylinderInfo ? cylinder.type : "",
+                items: [
+                  ListItem("P13", "p13"),
+                  ListItem("P20 - 3 valvulas", "p20v3"),
+                  ListItem("P20 - 5 valvulas", "p20v5"),
+                  ListItem("P45", "p45"),
+                ],
+                onChange: onChangeType
               ),
               const Padding(padding: EdgeInsets.all(15)),
               ElevatedButton(
