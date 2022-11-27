@@ -59,7 +59,7 @@ class _CuppertinoListInput extends State<CuppertinoListInput> {
     if (currentItemLabel.text == "") {
       var firstValue = items[actualIdxItem].label;
 
-      if (widget.initialValue != null) {
+      if (widget.initialValue != "" && widget.initialValue != null) {
         var idxFind = items.indexWhere((element) => element.value == widget.initialValue);
         firstValue = items[idxFind].label;
       }
