@@ -9,11 +9,9 @@ import 'package:glp_manager_mobile/models/my-globals.dart' as globals;
 class CylinderList extends StatefulWidget {
   const CylinderList({
     Key? key,
-    required this.cylinders,
     this.filter,
   }) : super(key: key);
 
-  final List<Cylinder> cylinders;
   final String? filter;
 
   @override
@@ -44,7 +42,7 @@ class _CylinderList extends State<CylinderList> {
       globals.currentBranchId,
       cylinder,
     );
-    
+
     actionOnUpdate();
   }
 
