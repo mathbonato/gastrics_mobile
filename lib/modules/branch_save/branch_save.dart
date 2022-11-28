@@ -11,8 +11,8 @@ import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 import 'package:glp_manager_mobile/models/my-globals.dart' as globals;
 
 
-class BranchCreate extends StatefulWidget {
-  const BranchCreate({
+class BranchSave extends StatefulWidget {
+  const BranchSave({
     Key? key,
     this.branchToUpdate
   }) : super(key: key);
@@ -20,10 +20,10 @@ class BranchCreate extends StatefulWidget {
   final Branch? branchToUpdate;
 
   @override
-  State<BranchCreate> createState() => _BranchCreateState();
+  State<BranchSave> createState() => _BranchSaveState();
 }
 
-class _BranchCreateState extends State<BranchCreate> {
+class _BranchSaveState extends State<BranchSave> {
   final branchController = BranchController();
 
   TextEditingController name = TextEditingController();

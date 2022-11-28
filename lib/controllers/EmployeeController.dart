@@ -40,8 +40,24 @@ class EmployeeController {
     }
 
     Future<Employee?> postEmployee(String companyId, Employee employee) async {
+      Map employeeData = {
+        'name': employee.name,
+        'lastName': employee.lastName,
+        'type': employee.type,
+        'birth': employee.birth!.toIso8601String(),
+        'cpf': employee.cpf,
+        'email': employee.email,
+        'pass': employee.pass,
+      };
+      var bodyData = jsonEncode(employeeData);
+
       Uri route = prepareUrl("/company/$companyId/employee");
-      var response = await http.post(route, body: employee);
+
+      var response = await http.post(
+        route,
+        body: bodyData,
+        headers: {"Content-Type": "application/json"}
+      );
 
       if (response.statusCode != 201) {
         return null;
@@ -54,9 +70,55 @@ class EmployeeController {
       return newEmployee;
     }
 
-    Future<Employee?> updateEmployee(String companyId, Employee employee) async {
+    Future<Employee?> updateEmployeeInfo(String companyId, Employee employee) async {
+      Map cylinderData = {
+        'id': employee.id,
+        'name': employee.name,
+        'lastName': employee.lastName,
+        'type': employee.type,
+        'birth': employee.birth,
+        'cpf': employee.cpf,
+        'email': employee.email,
+        'pass': employee.pass,
+      };
+      var bodyData = jsonEncode(cylinderData);
+
       Uri route = prepareUrl("/company/$companyId/employee");
-      var response = await http.put(route, body: employee);
+
+      var response = await http.put(
+        route,
+        body: bodyData,
+        headers: {"Content-Type": "application/json"}
+      );
+
+      if (response.statusCode != 200) {
+        return null;
+      }
+
+      var json = jsonDecode(response.body); 
+
+      Employee updatedEmployee = Employee.fromJson(json);
+
+      return updatedEmployee;
+    }
+
+    Future<Employee?> updateEmployee(String companyId, Employee employee) async {
+      Map cylinderData = {
+        'id': employee.id,
+        'name': employee.name,
+        'lastName': employee.lastName,
+        'type': employee.type,
+        'email': employee.email,
+      };
+      var bodyData = jsonEncode(cylinderData);
+
+      Uri route = prepareUrl("/company/$companyId/employee");
+
+      var response = await http.put(
+        route,
+        body: bodyData,
+        headers: {"Content-Type": "application/json"}
+      );
 
       if (response.statusCode != 200) {
         return null;

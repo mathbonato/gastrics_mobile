@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:glp_manager_mobile/components/card_img_description.dart';
 import 'package:glp_manager_mobile/controllers/BranchController.dart';
 import 'package:glp_manager_mobile/models/Branch.dart';
-import 'package:glp_manager_mobile/modules/branch_create/branch_create_page.dart';
+import 'package:glp_manager_mobile/modules/branch_save/branch_save.dart';
 import 'package:glp_manager_mobile/modules/drawer/drawer.dart';
-import 'package:glp_manager_mobile/modules/recipient/recipient_page.dart';
+import 'package:glp_manager_mobile/modules/branch_view/branch_view.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 import 'package:glp_manager_mobile/models/my-globals.dart' as globals;
 
@@ -35,7 +35,7 @@ class _BranchListState extends State<BranchList> {
             floatingActionButton: isOwner
               ? FloatingActionButton(
                   onPressed: () {
-                    Get.to(() => const BranchCreate());
+                    Get.to(() => const BranchSave());
                   },
                   backgroundColor: AppColors.primary,
                   child: const Icon(Icons.add),
@@ -79,11 +79,11 @@ class _BranchListState extends State<BranchList> {
                         img: branches[index].img,
                         editIcon: isOwner,
                         editAction: () {
-                          Get.to(() => BranchCreate(branchToUpdate: branches[index]));
+                          Get.to(() => BranchSave(branchToUpdate: branches[index]));
                         },
                         onCardClick: () => {
                           globals.currentBranchId = branches[index].id,
-                          Get.to(() => RecipientPage(branch: branches[index])),
+                          Get.to(() => BranchView(branch: branches[index])),
                         },
                       );
                     },
