@@ -6,6 +6,7 @@ class Employee {
   DateTime? birth;
   String cpf = '';
   String email = '';
+  String? pass = '';
 
   Employee(this.id, this.name, this.lastName, this.type, this.birth, this.cpf, this.email);
 
