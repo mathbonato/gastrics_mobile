@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:glp_manager_mobile/components/cuppentino_input.dart';
+import 'package:glp_manager_mobile/components/cuppertino_input.dart';
 import 'package:glp_manager_mobile/components/cuppertino_list_input.dart';
 import 'package:glp_manager_mobile/controllers/CylinderController.dart';
 import 'package:glp_manager_mobile/models/Cylinder.dart';
