@@ -44,7 +44,7 @@ class EmployeeController {
         'name': employee.name,
         'lastName': employee.lastName,
         'type': employee.type,
-        'birth': employee.birth,
+        'birth': employee.birth!.toIso8601String(),
         'cpf': employee.cpf,
         'email': employee.email,
         'pass': employee.pass,
