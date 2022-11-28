@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:glp_manager_mobile/components/cuppertino_date_picker.dart';
 import 'package:glp_manager_mobile/components/cuppertino_input.dart';
 import 'package:glp_manager_mobile/components/cuppertino_list_input.dart';
 import 'package:glp_manager_mobile/controllers/EmployeeController.dart';
 import 'package:glp_manager_mobile/models/Employee.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 import 'package:glp_manager_mobile/models/my-globals.dart' as globals;
+import 'package:intl/intl.dart';
 
 class EmployeeSave extends StatefulWidget {
   const EmployeeSave({
@@ -99,8 +101,11 @@ class _EmployeeSave extends State<EmployeeSave> {
         result = await updateEmployee(employeeToWork);
       }
       else {
-        String nameLetters = name.text[0-2].toLowerCase();
-        DateTime birthDateType = DateTime.parse(birth.text);
+        String firstLetter = name.text[0].toLowerCase();
+        String secondLetter = name.text[1].toLowerCase();
+        String thirdLetter = name.text[2].toLowerCase();
+        String nameLetters = firstLetter + secondLetter + thirdLetter;
+        DateTime birthDateType = DateFormat('dd-MM-yyyy').parse(birth.text);
         String year = birthDateType.year.toString();
         pass.text = nameLetters + year;
 
@@ -153,12 +158,13 @@ class _EmployeeSave extends State<EmployeeSave> {
   }
 
   Future<Employee?> createEmployee() async {
+    DateTime formatedDate = DateFormat('dd-MM-yyyy').parse(birth.text);
     Employee employee = Employee(
       "",
       name.text,
       lastName.text,
       type.text,
-      DateTime.parse(birth.text),
+      formatedDate,
       cpf.text,
       email.text,
     );
@@ -221,10 +227,9 @@ class _EmployeeSave extends State<EmployeeSave> {
                 initialValue: email.text,
               ),
               const Padding(padding: EdgeInsets.all(15)),
-              !hasEmployeeInfo ? CuppertinoInput(
+              !hasEmployeeInfo ? CuppertinoDatePicker(
                 label: "Nascimento",
-                onChange: onChangeBirth,
-                initialValue: birth.text,
+                controller: birth,
               ) : const SizedBox(),
               const Padding(padding: EdgeInsets.all(15)),
               CuppertinoListInput(
