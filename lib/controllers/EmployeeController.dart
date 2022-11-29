@@ -76,11 +76,19 @@ class EmployeeController {
         'name': employee.name,
         'lastName': employee.lastName,
         'type': employee.type,
-        'birth': employee.birth,
+        'birth': employee.birth!.toIso8601String(),
         'cpf': employee.cpf,
         'email': employee.email,
-        'pass': employee.pass,
       };
+
+      if (employee.pass != "") {
+        cylinderData["pass"] = employee.pass;
+      }
+
+      if (employee.type != "") {
+        cylinderData["type"] = employee.type;
+      }
+
       var bodyData = jsonEncode(cylinderData);
 
       Uri route = prepareUrl("/company/$companyId/employee");
