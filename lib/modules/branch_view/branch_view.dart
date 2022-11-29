@@ -12,6 +12,7 @@ import 'package:glp_manager_mobile/modules/employee_list/employee_list.dart';
 import 'package:glp_manager_mobile/modules/employee_save/employee_save.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:glp_manager_mobile/models/my-globals.dart' as globals;
 
 class BranchView extends StatefulWidget {
   const BranchView({
@@ -82,17 +83,19 @@ class _BranchViewState extends State<BranchView> {
         title: const Text("Gastrics"),
         actions: notificationBell(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (selectedIcon == 'cylinder') {
-            openCylinderCreator(null);
-          } else {
-           openEmployeeCreator(null);
-          }
-        },
-        backgroundColor: AppColors.primary,
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: globals.isOwner
+        ? FloatingActionButton(
+          onPressed: () {
+            if (selectedIcon == 'cylinder') {
+              openCylinderCreator(null);
+            } else {
+            openEmployeeCreator(null);
+            }
+          },
+          backgroundColor: AppColors.primary,
+          child: const Icon(Icons.add),
+        )
+        : const SizedBox(),
       body: Column(
         children: <Widget>[
           Container(
