@@ -44,6 +44,7 @@ class CylinderController {
         'exId': cylinder.exId,
         'name': cylinder.name,
         'gasType': cylinder.gasType,
+        'alertWhen': cylinder.alertWhen,
         'type': cylinder.type,
       };
       var bodyData = jsonEncode(cylinderData);
@@ -73,6 +74,7 @@ class CylinderController {
         'exId': cylinder.exId,
         'name': cylinder.name,
         'gasType': cylinder.gasType,
+        'alertWhen': cylinder.alertWhen,
         'type': cylinder.type,
       };
       var bodyData = jsonEncode(cylinderData);

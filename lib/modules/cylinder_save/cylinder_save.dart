@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:glp_manager_mobile/components/cuppertino_input.dart';
+import 'package:glp_manager_mobile/components/cuppertino_int_input.dart';
 import 'package:glp_manager_mobile/components/cuppertino_list_input.dart';
 import 'package:glp_manager_mobile/controllers/CylinderController.dart';
 import 'package:glp_manager_mobile/models/Cylinder.dart';
@@ -28,6 +29,7 @@ class _CylinderSave extends State<CylinderSave> {
   TextEditingController name = TextEditingController();
   TextEditingController type = TextEditingController();
   TextEditingController gasType = TextEditingController();
+  TextEditingController alertWhen = TextEditingController();
 
   TextEditingController alert = TextEditingController();
 
@@ -47,11 +49,16 @@ class _CylinderSave extends State<CylinderSave> {
     gasType.text = value;
   }
 
+  onChangeAlertWhen(String value) {
+    alertWhen.text = value;
+  }
+
   initValue(Cylinder cylinder) {
     exId.text = cylinder.exId;
     name.text = cylinder.name;
     type.text = cylinder.type;
     gasType.text = cylinder.gasType;
+    alertWhen.text = cylinder.alertWhen.toString();
   }
 
   Future handleCylinder(Cylinder? cylinderToWork, Function? actionOnFinish) async {
@@ -76,6 +83,15 @@ class _CylinderSave extends State<CylinderSave> {
         if (actionOnFinish != null) {
           actionOnFinish();
         }
+
+        Fluttertoast.showToast(
+          msg: "Atualizado com sucesso !",
+          toastLength: Toast.LENGTH_SHORT,
+          timeInSecForIosWeb: 5,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
 
         Navigator.pop(context);
       }
@@ -104,6 +120,8 @@ class _CylinderSave extends State<CylinderSave> {
       gasType.text,
       type.text,
       0.0,
+      0.0,
+      int.parse(alertWhen.text),
     );
 
     var result = await cylinderController.updateCylinder(
@@ -123,6 +141,8 @@ class _CylinderSave extends State<CylinderSave> {
       gasType.text,
       type.text,
       0.0,
+      0.0,
+      int.parse(alertWhen.text),
     );
 
     var result = await cylinderController.postCylinder(
@@ -138,7 +158,7 @@ class _CylinderSave extends State<CylinderSave> {
   Widget build(BuildContext context) {
     Cylinder? cylinder = widget.cylinder;
     bool hasCylinderInfo = cylinder != null;
-    bool isEmpty = !(exId.text != "" || name.text != "" || type.text != "" || gasType.text != "");
+    bool isEmpty = !(exId.text != "" || name.text != "" || type.text != "" || gasType.text != "" || alertWhen.text != "");
 
     if (hasCylinderInfo && isEmpty) {
       initValue(cylinder);
@@ -188,10 +208,16 @@ class _CylinderSave extends State<CylinderSave> {
                   ListItem("P20 - 3 valvulas", "p20v3"),
                   ListItem("P20 - 5 valvulas", "p20v5"),
                   ListItem("P45", "p45"),
+                  ListItem("TCC", "tcc"),
                 ],
                 onChange: onChangeType
               ),
               const Padding(padding: EdgeInsets.all(15)),
+              CuppertinoIntInput(
+                label: "Alertar quando (%)",
+                onChange: onChangeAlertWhen,
+                initialValue: alertWhen.text,
+              ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
                 onPressed: () {

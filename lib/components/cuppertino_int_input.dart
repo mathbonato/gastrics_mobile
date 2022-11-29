@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
-class CuppertinoInput extends StatefulWidget {
-  const CuppertinoInput(
+class CuppertinoIntInput extends StatefulWidget {
+  const CuppertinoIntInput(
       {Key? key,
       required this.label,
       required this.onChange,
       this.initialValue = "",
       this.readOnly = false,
       this.obscureText = false,
-      this.textInputType = TextInputType.text,
       })
       : super(key: key);
 
@@ -18,24 +17,23 @@ class CuppertinoInput extends StatefulWidget {
   final Function onChange;
   final bool readOnly;
   final bool obscureText;
-  final TextInputType textInputType;
 
   @override
-  State<CuppertinoInput> createState() => _CuppertinoInput();
+  State<CuppertinoIntInput> createState() => _CuppertinoIntInput();
 }
 
-class _CuppertinoInput extends State<CuppertinoInput> {
+class _CuppertinoIntInput extends State<CuppertinoIntInput> {
   
   @override
   Widget build(BuildContext context) {
     return Material(
       child: TextFormField(
-        keyboardType: widget.textInputType,
+        keyboardType: TextInputType.number,
         controller: TextEditingController()..text = widget.initialValue,
         obscureText: widget.obscureText,
         readOnly: widget.readOnly,
         onChanged: (value) => {
-          widget.onChange(value)
+          widget.onChange(value.toString())
         },
         decoration: InputDecoration(
           labelText: widget.label,
