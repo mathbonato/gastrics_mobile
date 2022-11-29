@@ -5,19 +5,22 @@ import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
 class RoundedPasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
+  final bool obscureText;
+
   const RoundedPasswordField({
     Key? key,
     required this.onChanged,
+    this.obscureText = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextField(
-        obscureText: true,
+        obscureText: obscureText,
         onChanged: onChanged,
         cursorColor: AppColors.primary,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: "Senha",
           icon: Icon(
             Icons.lock,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:glp_manager_mobile/constants.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 
 class RoundedButton extends StatelessWidget {

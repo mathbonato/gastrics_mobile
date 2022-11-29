@@ -13,12 +13,14 @@ class CuppertinoListInput extends StatefulWidget {
       required this.items,
       required this.onChange,
       this.initialValue,
+      this.readOnly = false,
       })
       : super(key: key);
 
   final List<ListItem> items;
   final Function onChange;
   final String? initialValue;
+  final bool readOnly;
 
   @override
   State<CuppertinoListInput> createState() => _CuppertinoListInput();
@@ -74,31 +76,35 @@ class _CuppertinoListInput extends State<CuppertinoListInput> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget> [
-            IconButton(
-              onPressed: () {
-                backItem(itemLength);
-                widget.onChange(items[actualIdxItem].value);
-                currentItemLabel.text = items[actualIdxItem].label;
-                setState(() {});
-              },
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.grey.shade400,
-              ),
-            ),
+            !widget.readOnly
+              ? IconButton(
+                onPressed: () {
+                  backItem(itemLength);
+                  widget.onChange(items[actualIdxItem].value);
+                  currentItemLabel.text = items[actualIdxItem].label;
+                  setState(() {});
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.grey.shade400,
+                ),
+              )
+              : const SizedBox(),
             Text(currentItemLabel.text),
-            IconButton(
-              onPressed: () {
-                backItem(itemLength);
-                widget.onChange(items[actualIdxItem].value);
-                currentItemLabel.text = items[actualIdxItem].label;
-                setState(() {});
-              },
-              icon: Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.grey.shade400,
-              ),
-            )
+            !widget.readOnly
+              ? IconButton(
+                onPressed: () {
+                  backItem(itemLength);
+                  widget.onChange(items[actualIdxItem].value);
+                  currentItemLabel.text = items[actualIdxItem].label;
+                  setState(() {});
+                },
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.grey.shade400,
+                ),
+              )
+            : const SizedBox(),
           ],
         ),
       )
