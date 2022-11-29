@@ -119,6 +119,15 @@ class _EmployeeSave extends State<EmployeeSave> {
           actionOnFinish();
         }
 
+        Fluttertoast.showToast(
+          msg: update ? "Atualizado com sucesso !" : "Criado com sucesso !",
+          toastLength: Toast.LENGTH_SHORT,
+          timeInSecForIosWeb: 5,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+
         Navigator.pop(context);
       }
       else {

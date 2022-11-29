@@ -85,7 +85,7 @@ class _CylinderSave extends State<CylinderSave> {
         }
 
         Fluttertoast.showToast(
-          msg: "Atualizado com sucesso !",
+          msg: update ? "Atualizado com sucesso !" : "Criado com sucesso !",
           toastLength: Toast.LENGTH_SHORT,
           timeInSecForIosWeb: 5,
           backgroundColor: Colors.black,
