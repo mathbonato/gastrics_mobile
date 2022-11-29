@@ -7,6 +7,11 @@ import 'package:glp_manager_mobile/modules/branch_create/branch_create_page.dart
 import 'package:glp_manager_mobile/modules/drawer/drawer.dart';
 import 'package:glp_manager_mobile/modules/recipient/recipient_page.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
+import 'package:glp_manager_mobile/modules/branch_list/branchController.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'dart:convert' as convert;
+import 'dart:io';
+import 'package:http/http.dart' as http;
 
 import '../../components/notification_bell.dart';
 
@@ -18,11 +23,37 @@ class BranchList extends StatefulWidget {
 }
 
 class _BranchListState extends State<BranchList> {
-  final List<Branch> branches = BranchGenerator().getBranches();
+  
+  final Future<List<Branch>> futureBranches =  new branchController().getBranches();
+  List<Branch> branches=[] ;
+    TextEditingController name = TextEditingController();
+  TextEditingController address = TextEditingController();
+  
+  
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+     futuretolist();
+  }
+ 
+  Future futuretolist() async {
+    
+     branches = await futureBranches;
+    setState((){
+   
+    });
+    
+    
+  }
+ 
+  @override
+  Widget build(BuildContext context){
+    
+   
+    
     return Scaffold(
+      
         backgroundColor: AppColors.background,
         drawer: const CustomDrawer(),
         appBar: AppBar(
@@ -66,7 +97,7 @@ class _BranchListState extends State<BranchList> {
                       subtitle: branches[index].street,
                       img: branches[index].img,
                       editIcon: true,
-                      editAction: () {},
+                      editAction: () =>openBranchEditor(branches[index]),
                       onCardClick: () => {
                         Get.to(RecipientPage(branch: branches[index])),
                       },
@@ -79,5 +110,105 @@ class _BranchListState extends State<BranchList> {
             ],
           ),
         ));
+  }
+
+  Future openBranchEditor(Branch branch) async{
+ 
+    address.text = branch.street;
+    
+    name.text = branch.name;
+    
+
+    showCupertinoModalBottomSheet(
+      context: context,
+      builder: (context) => SizedBox(
+        height: MediaQuery.of(context).size.height * 0.7,
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: Form(
+            child: Column(
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    "Editar Filial",
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ),
+                Material(
+                  child: TextFormField(
+                    controller: name,
+                    decoration: InputDecoration(
+                      labelText: "Nome",
+                      labelStyle: const TextStyle(
+                        color: Colors.black,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: AppColors.primary,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                    ),
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.all(10)),
+                Material(
+                  child: TextFormField(
+                    controller: address,
+                    decoration: InputDecoration(
+                      labelText: "Endereço",
+                      labelStyle: const TextStyle(
+                        color: Colors.black,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: AppColors.primary,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(10),
+                ),
+               
+                const Padding(padding: EdgeInsets.all(15)),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColors.primary,
+                  ),
+                  onPressed: () {
+                    branch.name = name.text;
+                    branch.street = address.text;
+                    
+                    new branchController().updateBranch(branch);
+
+                    setState(() {});
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "Salvar",
+                    style: TextStyle(
+                      color: Colors.white,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  
   }
 }

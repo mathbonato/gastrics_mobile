@@ -3,6 +3,13 @@ import 'package:glp_manager_mobile/components/notification_bell.dart';
 import 'package:glp_manager_mobile/components/rounded_button.dart';
 import 'package:glp_manager_mobile/components/rounded_input_field.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
+import 'package:glp_manager_mobile/modules/branch_list/branchController.dart';
+import 'package:glp_manager_mobile/modules/branch_list/branch_list_page.dart';
+import 'package:glp_manager_mobile/models/Branch.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BranchCreate extends StatefulWidget {
   const BranchCreate({Key? key}) : super(key: key);
@@ -12,6 +19,10 @@ class BranchCreate extends StatefulWidget {
 }
 
 class _BranchCreateState extends State<BranchCreate> {
+  String name='';
+  String address='';
+  branchController controller = new branchController();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +51,9 @@ class _BranchCreateState extends State<BranchCreate> {
               children: <Widget>[
                 RoundedInputField(
                   hintText: "Nome",
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    name = value;
+                  },
                 ),
                 RoundedInputField(
                   icon: Icons.description,
@@ -50,7 +63,9 @@ class _BranchCreateState extends State<BranchCreate> {
                 RoundedInputField(
                   icon: Icons.description,
                   hintText: "Endereço",
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    address = value;
+                  },
                 ),
                 RoundedInputField(
                   icon: Icons.phone,
@@ -59,7 +74,18 @@ class _BranchCreateState extends State<BranchCreate> {
                 ),
                 RoundedButton(
                   text: "CRIAR",
-                  press: () {},
+                  press: () async {
+                    if(name != '' || address !=''){
+                    Branch branch = new Branch();
+                    branch.name = name;
+                    branch.street = address;
+                    controller.createBranch(branch);
+                    }else{
+                      print("campos vazios");
+                    }
+                    setState((){});
+                    Get.to(BranchList());
+                  },
                 ),
               ],
             ),

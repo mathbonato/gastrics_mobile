@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'package:glp_manager_mobile/modules/branch_list/branch_list_page.dart';
 import 'package:glp_manager_mobile/modules/dashboard/dashboard_page.dart';
 import 'package:glp_manager_mobile/modules/home/home_page.dart';
+import 'package:glp_manager_mobile/modules/login/login_page.dart';
 import 'package:glp_manager_mobile/modules/metrics/metrics_page.dart';
 import 'package:glp_manager_mobile/shared/themes/app_images.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
+import 'package:glp_manager_mobile/modules/user_page/user_page.dart';
+import 'package:get_storage/get_storage.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -15,13 +19,16 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
-  @override
+  
+ final name =   GetStorage().read("name") + " " + GetStorage().read("lastName");
+ final email =  GetStorage().read("email");
   Widget build(BuildContext context) {
+  print(GetStorage().read("name"));  
     return Drawer(
       child: ListView(padding: const EdgeInsets.all(0.0), children: <Widget>[
-        const UserAccountsDrawerHeader(
-          accountName: Text('Teste Almeida'),
-          accountEmail: Text('teste@gmail.com'),
+         UserAccountsDrawerHeader(
+          accountName:Text(name),
+          accountEmail: Text(email),
           currentAccountPicture: CircleAvatar(
             backgroundImage: ExactAssetImage(AppImages.avatar),
           ),
@@ -48,13 +55,19 @@ class _CustomDrawerState extends State<CustomDrawer> {
         ListTile(
           title: const Text('Perfil'),
           leading: const Icon(Icons.person),
-          onTap: () {},
+          onTap: () =>Get.to(const UserPage()),
         ),
         const Divider(),
         ListTile(
           title: const Text('Sair'),
           leading: const Icon(Icons.logout),
-          onTap: () => Get.to(const HomePage()),
+          onTap: () { 
+            
+            GetStorage().write("Logged","off");
+            
+            
+            Get.to(const HomePage());
+            },
         ),
         ListTile(
             title: const Text('Fechar'),

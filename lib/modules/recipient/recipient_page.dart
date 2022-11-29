@@ -1,5 +1,5 @@
 import 'dart:ffi';
-
+import 'dart:convert' as convert;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glp_manager_mobile/components/card_img_description.dart';
@@ -8,12 +8,15 @@ import 'package:glp_manager_mobile/components/notification_bell.dart';
 import 'package:glp_manager_mobile/components/searcher.dart';
 import 'package:glp_manager_mobile/models/Branch.dart';
 import 'package:glp_manager_mobile/models/Receipt.dart';
+import 'package:glp_manager_mobile/modules/recipient/recipientController.dart';
+import 'package:glp_manager_mobile/modules/recipient/userController.dart';
 import 'package:glp_manager_mobile/models/User.dart';
 import 'package:glp_manager_mobile/mock/UserGenerator.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:glp_manager_mobile/components/progress_line.dart';
 
+enum cylindertype{p13, p20v3, p20v5, p45}
 class RecipientPage extends StatefulWidget {
   const RecipientPage({
     Key? key,
@@ -38,169 +41,53 @@ class Controller extends GetxController {
 }
 
 class _RecipientPageState extends State<RecipientPage> {
+
   String selectedIcon = 'one';
   TextEditingController name = TextEditingController();
-  TextEditingController peso = TextEditingController();
+  TextEditingController exId = TextEditingController();
+  TextEditingController gasType = TextEditingController();
   TextEditingController casco = TextEditingController();
-  TextEditingController desc = TextEditingController();
+  String desc = 'p13';
+
+
   TextEditingController userName = TextEditingController();
   TextEditingController userCpf = TextEditingController();
   TextEditingController userEmail = TextEditingController();
-  TextEditingController userPhone = TextEditingController();
-  List<User> allUsers = UserGenerator().userGenerate();
-  List<User> userQuery = UserGenerator().getUsers();
+  TextEditingController userPass = TextEditingController();
+  TextEditingController userBirth = TextEditingController();
+  List<User> allUsers = [];
+  List<User> userQuery = [];
+   Future<List<User>> futureUser = new userController().getUsers();
+  Branch br = new Branch();
+  Future<List<Receipt>> futureReceipt = new Future((){
+    return [];
+  });
+  List<Receipt> cylinders =[];
+  cylindertype? _ctype = cylindertype.p13;
+
+    @override
+  void initState() {
+    super.initState();
+     futuretolist();
+  }
+ 
+  Future futuretolist() async {
+    allUsers = await futureUser;
+    userQuery = await futureUser;
+    print(allUsers.length);
+     cylinders = await futureReceipt;
+     
+    setState((){
+   
+    });
+    
+    
+  }
 
   userControl(String icon, Branch branch) {
     userQuery = allUsers;
 
-    if (icon == "two") {
-      return StatefulBuilder(
-          builder: (BuildContext context, StateSetter modalState) {
-        return Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(30),
-              child: Material(
-                //color:AppColors.primary,
-
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: "Procurar Usuário",
-                    labelStyle: const TextStyle(
-                      color: Colors.black,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: AppColors.primary,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(25.0),
-                    ),
-                  ),
-                  // icon:Icons.search,
-                  //color:AppColors.primary,
-                  //padding:EdgeInsets.all(10),
-                  //hintText:"Procurar Usuário",
-                  onChanged: (value) {
-                    modalState(() {
-                      userQuery = [];
-                    });
-                    if (value != "") {
-                      for (int i = 0; i < allUsers.length; i++) {
-                        if (allUsers[i]
-                                .name
-                                .toUpperCase()
-                                .contains(value.toUpperCase()) ||
-                            allUsers[i].cpf.contains(value)) {
-                          modalState(() {
-                            userQuery.add(allUsers[i]);
-                          });
-                        }
-                      }
-                    } else {
-                      modalState(() {
-                        userQuery = allUsers;
-                      });
-                    }
-                  },
-                ),
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.43,
-              child: ListView.separated(
-                shrinkWrap: true,
-                itemCount: userQuery.length,
-                itemBuilder: (context, index) {
-                  User user = userQuery[index];
-                  return Card(
-                    child: InkWell(
-                      onTap: () {
-                        branch.users.any((item) => item.cpf == user.cpf) == true
-                            ? setState(() {
-                                modalState(() {
-                                  branch.users.removeAt(branch.users.indexWhere(
-                                      (userValue) =>
-                                          userValue.cpf == user.cpf));
-                                });
-                              })
-                            : setState(() {
-                                modalState(() {
-                                  branch.users.add(user);
-                                });
-                              });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        //color:AppColors.primary,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Column(
-                              children: [
-                                Text(
-                                  user.name,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    decoration: TextDecoration.none,
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            // Container(
-                            // child:: Container()
-                            // ),
-                            Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  branch.users.any(
-                                              (item) => item.cpf == user.cpf) ==
-                                          true
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: const <Widget>[
-                                            Icon(
-                                              Icons.check,
-                                              color: Colors.green,
-                                              size: 18,
-                                            ),
-                                          ],
-                                        )
-                                      : Container(),
-                                  IconButton(
-                                    icon: const Icon(Icons.delete),
-                                    onPressed: () {
-                                      modalState(() {
-                                        userQuery.removeWhere(
-                                            (item) => item.cpf == user.cpf);
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(),
-              ),
-            ),
-          ],
-        );
-      });
-    } else {
+    
       return Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -224,6 +111,7 @@ class _RecipientPageState extends State<RecipientPage> {
                   ),
                 ),
               ),
+              const Padding(padding: EdgeInsets.only(top: 10)),
               Material(
                 //color:AppColors.primary,
                 child: TextFormField(
@@ -243,6 +131,7 @@ class _RecipientPageState extends State<RecipientPage> {
                   ),
                 ),
               ),
+              const Padding(padding: EdgeInsets.only(top: 10)),
               Material(
                 //color:AppColors.primary,
                 child: TextFormField(
@@ -262,12 +151,33 @@ class _RecipientPageState extends State<RecipientPage> {
                   ),
                 ),
               ),
+              const Padding(padding: EdgeInsets.only(top: 10)),
               Material(
                 //color:AppColors.primary,
                 child: TextFormField(
-                  controller: userPhone,
+                  controller: userPass,
                   decoration: InputDecoration(
-                    labelText: "Telefone do Usuário",
+                    labelText: "Senha do Usuário",
+                    labelStyle: const TextStyle(
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: AppColors.primary,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(25.0),
+                    ),
+                  ),
+                ),
+              ),
+              const Padding(padding: EdgeInsets.only(top: 10)),
+                   Material(
+                //color:AppColors.primary,
+                child: TextFormField(
+                  controller: userBirth,
+                  decoration: InputDecoration(
+                    labelText: "Data de nascimento do Usuário",
                     labelStyle: const TextStyle(
                       color: Colors.black,
                     ),
@@ -289,21 +199,31 @@ class _RecipientPageState extends State<RecipientPage> {
                     "Criar",
                     style: TextStyle(color: Colors.white),
                   ),
-                  onPressed: () {
-                    setState(() {
+                  onPressed: () async{
+
+                    
+
+                    
                       User user = User();
                       user.name = userName.text;
                       user.cpf = userCpf.text;
                       user.email = userEmail.text;
-                      user.phone = userPhone.text;
-                      allUsers.add(user);
-                      branch.users.add(user);
+                      user.pass = userPass.text;
+                      String data = userBirth.text;
+                      var splitdata =data.split('/');
+                      user.birth = splitdata[2]+'-'+splitdata[1]+'-'+splitdata[0];
+                      
+                      
+                      await new userController().createUser(user);
+                    futureUser =new userController().getUsers();
+                      
 
                       userName.text = "";
                       userCpf.text = "";
                       userEmail.text = "";
-                      userPhone.text = "";
-                    });
+                      userPass.text = "";
+                      userBirth.text = "";
+                    futuretolist();
                     Navigator.of(context).pop();
                   },
                   style: ButtonStyle(
@@ -315,11 +235,12 @@ class _RecipientPageState extends State<RecipientPage> {
             ],
           ));
     }
-  }
+  
 
   selectedIconChange(String iconName, Branch branch, List<Receipt> canisters,
       List<User> users) {
     if (iconName == "one") {
+      
       return Expanded(
         child: Container(
           margin: const EdgeInsets.only(top: 40.0),
@@ -343,12 +264,11 @@ class _RecipientPageState extends State<RecipientPage> {
                 removeIcon: true,
                 onCardClick: () => openCanisterView(canister),
                 editAction: () => openCanisterEditor(canister),
-                removeAction: () {
-                  setState(
-                    () {
-                      branch.canisters.removeAt(index);
-                    },
-                  );
+                removeAction: () async{
+                        await new recipientController().deleteRecipient(canister,br.id);
+                        futureReceipt =  recipientController().getRecipient(br.id);
+                        futuretolist();
+                 
                 },
               );
             },
@@ -380,15 +300,14 @@ class _RecipientPageState extends State<RecipientPage> {
                 img:
                     'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png',
                 editIcon: false,
-                removeIcon: true,
+                removeIcon: user.type=='employee'?true:false,
                 //onCardClick: () => openCanisterView(canister),
                 //editAction: () => openCanisterEditor(canister),
-                removeAction: () {
-                  setState(
-                    () {
-                      branch.users.removeAt(index);
-                    },
-                  );
+                removeAction: () async{
+                  await new userController().deleteUser(user);
+                  futureUser = new userController().getUsers();
+                  futuretolist();
+                  
                 },
               );
             },
@@ -402,7 +321,8 @@ class _RecipientPageState extends State<RecipientPage> {
   }
 
   openCanisterView(Receipt canister) {
-    double per = (canister.actualWeight / canister.totalWeight) * 100;
+    print(canister.actualWeight);
+    double per = 0;
     int? peri = per.toInt();
 
     showCupertinoModalBottomSheet(
@@ -453,16 +373,7 @@ class _RecipientPageState extends State<RecipientPage> {
               ),
             ),
             const Padding(padding: EdgeInsets.only(top: 5)),
-            Text(
-              "Capacidade máxima: " +
-                  canister.totalWeight.toStringAsFixed(2) +
-                  "Kg",
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                decoration: TextDecoration.none,
-              ),
-            ),
+           
             const Padding(padding: EdgeInsets.only(top: 5)),
             const Text(
               "Atualizado em 26/05/2022",
@@ -494,10 +405,10 @@ class _RecipientPageState extends State<RecipientPage> {
                   Container(
                     padding: const EdgeInsets.all(10),
                     child: const Text(
-                      "Controle de Usuários",
+                      "Adicionar Usuário",
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.black,
+                        color: AppColors.primary,
                         decoration: TextDecoration.none,
                       ),
                     ),
@@ -508,31 +419,11 @@ class _RecipientPageState extends State<RecipientPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        IconButton(
-                          color: Colors.black,
-                          icon: const Icon(Icons.add),
-                          onPressed: () {
-                            setState(() {
-                              modalState(() {
-                                userIcon = "one";
-                              });
-                            });
-                          },
-                        ),
+                      
                         const Padding(
                           padding: EdgeInsets.only(right: 26),
                         ),
-                        IconButton(
-                          color: Colors.black,
-                          icon: const Icon(Icons.search),
-                          onPressed: () {
-                            setState(() {
-                              modalState(() {
-                                userIcon = "two";
-                              });
-                            });
-                          },
-                        ),
+                    
                       ],
                     ),
                   ),
@@ -547,129 +438,32 @@ class _RecipientPageState extends State<RecipientPage> {
   }
 
   openCanisterEditor(Receipt canister) {
-    casco.text = canister.gasHullWeight.toString();
-    peso.text = canister.totalWeight.toString();
+    
+    
     name.text = canister.name;
-    desc.text = canister.description;
+    gasType.text = canister.gasType;
+    desc = canister.type;
+    switch(desc){
+      case 'p13':
+        _ctype = cylindertype.p13;
+        break;
+      case 'p20v3':
+        _ctype = cylindertype.p20v3;
+        break;
+      case 'p20v5':
+        _ctype = cylindertype.p20v5;
+        break;
+      case 'p45':
+        _ctype = cylindertype.p45;
+        break;
+    }
 
-    showCupertinoModalBottomSheet(
+  showCupertinoModalBottomSheet(
       context: context,
-      builder: (context) => SizedBox(
-        height: MediaQuery.of(context).size.height * 0.7,
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Form(
-            child: Column(
-              children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    "Editar Recipiente",
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                ),
-                Material(
-                  child: TextFormField(
-                    controller: name,
-                    decoration: InputDecoration(
-                      labelText: "Nome",
-                      labelStyle: const TextStyle(
-                        color: Colors.black,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: AppColors.primary,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.all(10)),
-                Material(
-                  child: TextFormField(
-                    controller: peso,
-                    decoration: InputDecoration(
-                      labelText: "Capacidade máxima",
-                      labelStyle: const TextStyle(
-                        color: Colors.black,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: AppColors.primary,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(10),
-                ),
-                Material(
-                  child: TextFormField(
-                    controller: casco,
-                    decoration: InputDecoration(
-                      labelText: "Peso do recipiente vazio",
-                      labelStyle: const TextStyle(
-                        color: Colors.black,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: AppColors.primary,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.all(15)),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: AppColors.primary,
-                  ),
-                  onPressed: () {
-                    canister.name = name.text;
-                    canister.description = desc.text;
-                    canister.totalWeight = double.parse(peso.text);
-                    canister.gasHullWeight = double.parse(casco.text);
-
-                    setState(() {});
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    "Salvar",
-                    style: TextStyle(
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  openCanisterCreator() {
-    casco.text = '';
-    peso.text = '';
-    name.text = '';
-    desc.text = '';
-
-    showCupertinoModalBottomSheet(
-      context: context,
-      builder: (context) => SizedBox(
+      builder: (context)  {
+         return StatefulBuilder(
+          builder: (BuildContext context, StateSetter modalState) {
+        return SizedBox(
         height: MediaQuery.of(context).size.height * 0.7,
         child: SingleChildScrollView(
           child: Padding(
@@ -706,9 +500,190 @@ class _RecipientPageState extends State<RecipientPage> {
                 const Padding(padding: EdgeInsets.all(10)),
                 Material(
                   child: TextFormField(
-                    controller: peso,
+                    controller: gasType,
                     decoration: InputDecoration(
-                      labelText: "Capacidade máxima",
+                      labelText: "Tipo de gás",
+                      labelStyle: const TextStyle(
+                        color: Colors.black,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: AppColors.primary,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                    ),
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.all(10)),
+               
+              
+                  
+                 Material(child: ListTile(
+                  
+          title: SizedBox(
+                width: 40,
+                child: Text( 'p13')),
+          leading: Radio<cylindertype>(
+            value: cylindertype.p13,
+            groupValue: _ctype,
+            onChanged: (cylindertype? value) {
+                setState((){
+              desc = 'p13';
+              });
+              modalState(() {
+                
+                _ctype = value;
+                print(_ctype);
+              });
+            },
+          ),
+        ),
+        
+        ),
+         Material(child: ListTile(
+                  
+          title: SizedBox(
+                width: 40,
+                child: Text( 'p20v3')),
+          leading: Radio<cylindertype>(
+            value: cylindertype.p20v3,
+            groupValue: _ctype,
+            onChanged: (cylindertype? value) {
+              setState((){
+desc = 'p20v3';
+              });
+              
+              modalState(() {
+                
+                _ctype = value;
+                print(value);
+              });
+            },
+          ),
+        ),
+        
+        ),
+          Material(child: ListTile(
+                  
+          title: SizedBox(
+                width: 40,
+                child: Text( 'p20v5')),
+          leading: Radio<cylindertype>(
+            value: cylindertype.p20v5,
+            groupValue: _ctype,
+            onChanged: (cylindertype? value) {
+                setState((){
+               desc = 'p20v5';
+               });
+              modalState(() {
+               
+                _ctype = value;
+                print(_ctype);
+              });
+            },
+          ),
+        ),
+        
+        ),
+        
+        Material(child:
+        ListTile(
+          
+           title: SizedBox(
+                width: 40,
+                child: Text( 'p45')),
+          leading: Radio<cylindertype>(
+            value: cylindertype.p45,
+            groupValue: _ctype,
+            onChanged: (cylindertype? value) {
+                setState((){
+              desc = 'p45';
+              });
+              modalState(() {
+                
+                _ctype = value;
+                print(_ctype);
+              });
+            },
+          ),
+        ),
+        ),
+                  
+                const Padding(padding: EdgeInsets.all(15)),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: AppColors.primary),
+                  onPressed: () async{
+                    
+                    canister.name = name.text;
+                    canister.gasType =gasType.text;
+                    canister.type = desc;
+                    
+                    canister.img =
+                        "https://a-static.mlcdn.com.br/1500x1500/botijao-de-gas-13kg-liquigas/doisirmaosdistribuidora/d1a9bcc2593111ec9a154201ac18503a/8e2690349b445e82c17437d629fa10a0.jpg";
+                        await  new recipientController().updateRecipient(canister,br.id);
+                        
+                      futureReceipt = new recipientController().getRecipient(br.id);
+                      futuretolist();
+                      name.text = "";
+                      desc = 'p13';
+                      gasType.text = "";
+                    
+                    Navigator.pop(context);
+                    
+                  },
+                  child: const Text(
+                    "Criar",
+                    style: TextStyle(
+                        color: Colors.white, decoration: TextDecoration.none),
+                  ),
+                )
+              ]),
+            ),
+          ),
+        ),
+      );
+      },
+      );
+      },
+    );
+  }
+
+  openCanisterCreator() {
+    gasType.text = '';
+    //exId.text = '';
+    name.text = '';
+    desc = 'p13';
+    _ctype = cylindertype.p13;
+    
+
+    showCupertinoModalBottomSheet(
+      context: context,
+      builder: (context)  {
+         return StatefulBuilder(
+          builder: (BuildContext context, StateSetter modalState) {
+        return SizedBox(
+        height: MediaQuery.of(context).size.height * 0.7,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Form(
+              child: Column(children: <Widget>[
+                const Text(
+                  "Criar Recipiente",
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                Material(
+                  child: TextFormField(
+                    controller: name,
+                    decoration: InputDecoration(
+                      labelText: "Nome",
                       labelStyle: const TextStyle(
                         color: Colors.black,
                       ),
@@ -725,9 +700,9 @@ class _RecipientPageState extends State<RecipientPage> {
                 const Padding(padding: EdgeInsets.all(10)),
                 Material(
                   child: TextFormField(
-                    controller: casco,
+                    controller: gasType,
                     decoration: InputDecoration(
-                      labelText: "Peso do recipiente vazio",
+                      labelText: "Tipo de gás",
                       labelStyle: const TextStyle(
                         color: Colors.black,
                       ),
@@ -741,23 +716,122 @@ class _RecipientPageState extends State<RecipientPage> {
                     ),
                   ),
                 ),
+                const Padding(padding: EdgeInsets.all(10)),
+               
+              
+                  
+                 Material(child: ListTile(
+                  
+          title: SizedBox(
+                width: 40,
+                child: Text( 'p13')),
+          leading: Radio<cylindertype>(
+            value: cylindertype.p13,
+            groupValue: _ctype,
+            onChanged: (cylindertype? value) {
+                setState((){
+              desc = 'p13';
+              });
+              modalState(() {
+                
+                _ctype = value;
+                print(_ctype);
+              });
+            },
+          ),
+        ),
+        
+        ),
+         Material(child: ListTile(
+                  
+          title: SizedBox(
+                width: 40,
+                child: Text( 'p20v3')),
+          leading: Radio<cylindertype>(
+            value: cylindertype.p20v3,
+            groupValue: _ctype,
+            onChanged: (cylindertype? value) {
+              setState((){
+desc = 'p20v3';
+              });
+              
+              modalState(() {
+                
+                _ctype = value;
+                print(value);
+              });
+            },
+          ),
+        ),
+        
+        ),
+          Material(child: ListTile(
+                  
+          title: SizedBox(
+                width: 40,
+                child: Text( 'p20v5')),
+          leading: Radio<cylindertype>(
+            value: cylindertype.p20v5,
+            groupValue: _ctype,
+            onChanged: (cylindertype? value) {
+                setState((){
+               desc = 'p20v5';
+               });
+              modalState(() {
+               
+                _ctype = value;
+                print(_ctype);
+              });
+            },
+          ),
+        ),
+        
+        ),
+        
+        Material(child:
+        ListTile(
+          
+           title: SizedBox(
+                width: 40,
+                child: Text( 'p45')),
+          leading: Radio<cylindertype>(
+            value: cylindertype.p45,
+            groupValue: _ctype,
+            onChanged: (cylindertype? value) {
+                setState((){
+              desc = 'p45';
+              });
+              modalState(() {
+                
+                _ctype = value;
+                print(_ctype);
+              });
+            },
+          ),
+        ),
+        ),
+                  
                 const Padding(padding: EdgeInsets.all(15)),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: AppColors.primary),
-                  onPressed: () {
+                  onPressed: () async{
                     Receipt gas = Receipt();
                     gas.name = name.text;
-                    gas.totalWeight = double.parse(peso.text);
-                    gas.gasHullWeight = double.parse(casco.text);
+                    gas.gasType =gasType.text;
+                    gas.type = desc;
+                    
                     gas.img =
                         "https://a-static.mlcdn.com.br/1500x1500/botijao-de-gas-13kg-liquigas/doisirmaosdistribuidora/d1a9bcc2593111ec9a154201ac18503a/8e2690349b445e82c17437d629fa10a0.jpg";
-                    setState(() {
-                      widget.branch.canisters.add(gas);
+                        await  new recipientController().createRecipient(gas,br.id);
+                        
+                      futureReceipt = new recipientController().getRecipient(br.id);
+                      futuretolist();
                       name.text = "";
-                      peso.text = "";
-                      casco.text = "";
-                    });
+                      desc = 'p13';
+                      gasType.text = "";
+                    
                     Navigator.pop(context);
+                    
                   },
                   child: const Text(
                     "Criar",
@@ -769,15 +843,25 @@ class _RecipientPageState extends State<RecipientPage> {
             ),
           ),
         ),
-      ),
+      );
+      },
+      );
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
     Branch branch = widget.branch;
-    List<Receipt> canisters = branch.canisters;
-    List<User> users = branch.users;
+    List<Receipt> canisters = cylinders;
+    
+    if(br.id==''){futureReceipt =  new recipientController().getRecipient(widget.branch.id);
+
+    futuretolist();
+    }
+    List<User> users = allUsers;
+    br = branch;
+    
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -834,8 +918,8 @@ class _RecipientPageState extends State<RecipientPage> {
               left: 20,
               right: 20,
             ),
-            child: const Searcher(
-              pleaceHolder: 'Procurar recipientes',
+            child: Searcher(
+              pleaceHolder: selectedIcon=="one"?'Procurar recipientes...':'Procurar usuários...',
               title: 'recipientes',
             ),
           ),

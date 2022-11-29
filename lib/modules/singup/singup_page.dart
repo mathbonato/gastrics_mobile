@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glp_manager_mobile/modules/dashboard/dashboard_page.dart';
+import 'package:glp_manager_mobile/modules/user_page/user_page.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
+import 'package:glp_manager_mobile/modules/login/loginController.dart';
+import 'package:http/http.dart' as http;
 
 import '../../components/rounded_button.dart';
 import '../../components/rounded_input_field.dart';
@@ -17,6 +20,11 @@ class SingUpPage extends StatefulWidget {
 }
 
 class _SingUpPageState extends State<SingUpPage> {
+  String name ='';
+  String cnpj='';
+  String email ='';
+  String pass ='';
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -43,24 +51,44 @@ class _SingUpPageState extends State<SingUpPage> {
                   RoundedInputField(
                     hintText: "Nome da empresa",
                     icon: Icons.business,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      name = value;
+                    },
                   ),
                   RoundedInputField(
                     hintText: "E-mail",
                     icon: Icons.mail,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      email = value;
+                    },
                   ),
                   RoundedInputField(
                     hintText: "CNPJ",
                     icon: Icons.person,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      cnpj = value;
+                    },
                   ),
                   RoundedPasswordField(
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      pass= value;
+                    },
                   ),
                   RoundedButton(
                     text: "Cadastrar",
-                    press: () => Get.to(DashboardPage()),
+                    press: () async{
+                    if(await  new loginController().createUser(email,pass,name,cnpj ) ==200){
+                      print("tudo certo");
+                      Get.to(DashboardPage());
+                      Get.to(UserPage());
+                    }else{
+                      print("algo errado");
+                    }
+                      
+                      
+                      
+                      
+                       },
                   ),
                   SizedBox(height: size.height * 0.03),
                 ],
