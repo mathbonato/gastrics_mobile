@@ -201,6 +201,12 @@ class _CylinderSave extends State<CylinderSave> {
                 initialValue: gasType.text,
               ),
               const Padding(padding: EdgeInsets.all(15)),
+              CuppertinoIntInput(
+                label: "Alertar quando (%)",
+                onChange: onChangeAlertWhen,
+                initialValue: alertWhen.text,
+              ),
+              const Padding(padding: EdgeInsets.all(15)),
               CuppertinoListInput(
                 initialValue: type.text,
                 items: [
@@ -213,11 +219,6 @@ class _CylinderSave extends State<CylinderSave> {
                 onChange: onChangeType
               ),
               const Padding(padding: EdgeInsets.all(15)),
-              CuppertinoIntInput(
-                label: "Alertar quando (%)",
-                onChange: onChangeAlertWhen,
-                initialValue: alertWhen.text,
-              ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
                 onPressed: () {
