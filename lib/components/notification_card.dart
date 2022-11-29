@@ -6,15 +6,11 @@ class NotificationCard extends StatefulWidget {
     Key? key,
     required this.title,
     required this.subtitle,
-    required this.indicatorVal,
-    required this.indicatorDescription,
     required this.alertType,
   }) : super(key: key);
 
   final String title;
   final String subtitle;
-  final int indicatorVal;
-  final String indicatorDescription;
   final String alertType;
 
   @override
@@ -85,31 +81,6 @@ class _NotificationCard extends State<NotificationCard> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    widget.indicatorVal.toString(),
-                    style: const TextStyle(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    widget.indicatorDescription,
-                    style: const TextStyle(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                width: 20,
-              ),
               Icon(
                 Icons.warning_amber,
                 color: colorToUse,
