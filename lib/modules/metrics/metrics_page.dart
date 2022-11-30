@@ -5,8 +5,10 @@ import 'package:glp_manager_mobile/components/card.dart';
 import 'package:glp_manager_mobile/components/notification_bell.dart';
 import 'package:glp_manager_mobile/controllers/AnalyticController.dart';
 import 'package:glp_manager_mobile/controllers/BranchController.dart';
+import 'package:glp_manager_mobile/models/Branch.dart';
 import 'package:glp_manager_mobile/models/DayDataAnalytic.dart';
 import 'package:glp_manager_mobile/modules/drawer/drawer.dart';
+import 'package:glp_manager_mobile/modules/metrics/cards_list/cards_list.dart';
 import 'package:glp_manager_mobile/shared/themes/appcollors.dart';
 import 'package:glp_manager_mobile/models/my-globals.dart' as globals;
 
@@ -20,13 +22,11 @@ class MetricsPage extends StatefulWidget {
 class _MetricsPage extends State<MetricsPage> {
   AnalyticController analyticsController = AnalyticController();
   BranchController branchController = BranchController();
+  TextEditingController selectedBranchId = TextEditingController();
+  Branch? _selectedBranch;
+  List<Branch> _branches = [];
   
   String dropdownValue = 'Filial1';
-
-  double roundDouble(double value, int places){ 
-   num mod = pow(10.0, places); 
-   return ((value * mod).round().toDouble() / mod); 
-}
 
   @override
   Widget build(BuildContext context) {
@@ -42,60 +42,48 @@ class _MetricsPage extends State<MetricsPage> {
         body: Column(
           children: [
             SizedBox(height: size.height * 0.01),
-            Padding(
-              padding: const EdgeInsets.all(9.0),
-              child: DropdownButton<String>(
-                value: dropdownValue,
-                icon: const Icon(Icons.arrow_downward),
-                elevation: 16,
-                isExpanded: true,
-                style: const TextStyle(color: AppColors.primary),
-                underline: Container(
-                  height: 2,
-                  color: AppColors.primary,
-                ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropdownValue = newValue!;
-                  });
-                },
-                items: <String>['Filial1', 'Filial2', 'Filial3']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-            ),
             FutureBuilder(
-              future: analyticsController.getAnalyticsByBranch('7aa4c0a5-988d-4959-8166-9571bf20291f'),
-              builder: (BuildContext context, AsyncSnapshot<List<DayDataAnalytic>> snapshot) {
-                List<DayDataAnalytic> analytics= [];
+              future: branchController.getBranches(globals.company!.id),
+              builder: (BuildContext context, AsyncSnapshot<List<Branch>> snapshot) {
 
-                if(snapshot.hasData) {
-                  analytics = snapshot.data!;
+                if(snapshot.hasData && _branches.isEmpty) {
+                  _branches = snapshot.data!;
                 }
 
-                return Expanded(
-                  child: GridView.count(
-                    primary: false,
-                    padding: const EdgeInsets.all(20),
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    crossAxisCount: 2,
-                    children: analytics.map((DayDataAnalytic analytic) {
-                      return CustomCard(
-                        title: analytic.name ?? "",
-                        currentWeight: roundDouble(analytic.weight, 2),
-                        percentage: analytic.percentWeight.round(),
-                        date: analytic.date,
-                      );
-                    }).toList()
-                  ),
-                );
+                return Padding(
+                      padding: const EdgeInsets.all(9.0),
+                      child: DropdownButton<Branch>(
+                        value: _selectedBranch,
+                        icon: const Icon(Icons.arrow_downward),
+                        elevation: 16,
+                        isExpanded: true,
+                        style: const TextStyle(color: AppColors.primary),
+                        underline: Container(
+                          height: 2,
+                          color: AppColors.primary,
+                        ),
+                        onChanged: (Branch? newValue) {
+                          if (newValue != null) {
+                            setState(() {
+                              var idx = _branches.indexOf(newValue);
+                              _selectedBranch = _branches[idx];
+                            });
+                          }
+                        },
+                        items: _branches
+                            .map((Branch value) {
+                          return DropdownMenuItem<Branch>(
+                            value: value,
+                            child: Text(value.name),
+                          );
+                        }).toList(),
+                      ),
+                    );
               }
             ),
+            _selectedBranch != null
+              ? CardsList(selectedBranch: _selectedBranch,)
+              : const SizedBox(),
           ],
         ));
   }
