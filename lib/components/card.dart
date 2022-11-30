@@ -8,15 +8,13 @@ class CustomCard extends StatefulWidget {
   const CustomCard(
       {Key? key,
       required this.title,
-      required this.maxWeight,
       required this.currentWeight,
       required this.percentage,
       required this.date})
       : super(key: key);
 
   final String title;
-  final int maxWeight;
-  final int currentWeight;
+  final double currentWeight;
   final int percentage;
   final String date;
 
@@ -64,13 +62,6 @@ class _CustomCardState extends State<CustomCard> {
             children: [
               Text(
                 "Peso atual: ${widget.currentWeight} Kg",
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.background,
-                    fontSize: 14),
-              ),
-              Text(
-                "Capacidade: ${widget.maxWeight} Kg",
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.background,
