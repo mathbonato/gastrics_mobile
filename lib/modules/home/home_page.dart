@@ -58,15 +58,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   RoundedButton(
                     text: "Entrar",
-                    press: () => Get.to(LoginPage()),
-                  ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20),
-                      primary: AppColors.primary,
-                    ),
-                    onPressed: () => Get.to(SingUpPage()),
-                    child: const Text('Cadastrar-se'),
+                    press: () => Get.to(() => const LoginPage()),
                   ),
                 ],
               ),

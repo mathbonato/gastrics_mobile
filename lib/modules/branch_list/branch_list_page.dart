@@ -25,6 +25,15 @@ class _BranchListState extends State<BranchList> {
   final userInfo = globals.loginResponse;
   final isOwner = globals.isOwner;
 
+  actionOnUpdate() {
+    setState(() {});
+  }
+
+  Future removeBranch(Branch branch) async {
+    await branchController.deleteBranch(globals.company!.id, branch);
+    actionOnUpdate();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +92,8 @@ class _BranchListState extends State<BranchList> {
                         editAction: () {
                           Get.to(() => BranchSave(branchToUpdate: branches[index]));
                         },
+                        removeIcon: isOwner,
+                        removeAction: () => removeBranch(branches[index]),
                         onCardClick: () => {
                           globals.currentBranchId = branches[index].id,
                           Get.to(() => BranchView(branch: branches[index])),
