@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:glp_manager_mobile/components/notification_card.dart';
 import 'package:glp_manager_mobile/controllers/AlertController.dart';
@@ -15,8 +17,14 @@ class NotificationsView extends StatefulWidget {
 class _NotificationsViewState extends State<NotificationsView> {
   final AlertController alertController = AlertController();
 
+  loop() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
+    Timer(const Duration(seconds: 2), () => loop());
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -31,7 +39,9 @@ class _NotificationsViewState extends State<NotificationsView> {
 
           if (snapshot.hasData) {
             alerts = snapshot.data!;
+            alerts = List.from(alerts.reversed);
           }
+
 
           return Column(
             children: <Widget>[
